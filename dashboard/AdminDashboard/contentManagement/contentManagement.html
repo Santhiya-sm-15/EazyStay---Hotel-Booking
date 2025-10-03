@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Content Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Calligraffitti&family=Gabarito:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/images/logo.png" rel="icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            berkshire: ['"Berkshire Swash"', 'cursive'],
+            calli: ['"Calligraffitti"', 'cursive'],
+            gabarito: ['"Gabarito"', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="font-gabarito text-md md:text-base min-h-screen">
+  <div class="flex flex-col">
+        <div class="fixed top-0 h-20 z-50 w-full flex flex-row gap-4 bg-white shadow-xl justify-between items-center p-2 transition-all duration-1000">
+            <div class="flex flex-row gap-2 p-4 items-center">
+                <div class="w-12 h-12 rounded-full border-2 border-yellow-400 bg-[url('/images/logo.png')] bg-cover bg-center"></div>
+                <div class="font-berkshire font-bold text-2xl">EazyStay</div>
+            </div>
+            <div>
+                <button id="hamburger-btn" class="p-4 space-y-1.5 md:hidden">
+                    <div class="w-6 h-0.5 bg-gray-700"></div>
+                    <div class="w-6 h-0.5 bg-gray-700"></div>
+                    <div class="w-6 h-0.5 bg-gray-700"></div>
+                </button>
+            </div>
+            <div class="md:flex-row md:gap-2 lg:gap-4 items-center hidden md:flex">
+                <div class="font-semibold">
+                    <a href="/index.html" class="flex items-center gap-2 rounded-lg transition-all duration-200 text-gray-700 hover:text-amber-600">
+                        <i class="fas fa-home"></i>
+                        <span class="font-medium">Home</span>
+                    </a>
+                </div>
+                <div id="nav-login" class="font-semibold p-2 bg-gradient-to-r from-amber-300 to-amber-500 rounded-2xl hover:scale-105 cursor-pointer">Login/Signup</div>
+                <!-- User Dropdown (shown when logged in) -->
+                <div id="nav-user-dropdown" class="relative group hidden">
+                    <button id="nav-user-btn" class="flex items-center gap-2 bg-gradient-to-r from-amber-300 to-amber-500 p-1 rounded-2xl transition-all duration-300 shadow-lg hover:scale-105">
+                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <i class="fas fa-user text-sm"></i>
+                        </div>
+                        <span id="nav-username" class="font-semibold"></span>
+                        <i class="fas fa-chevron-down text-xs transition-transform duration-200" id="nav-dropdown-arrow"></i>
+                    </button>
+                    <div id="nav-user-menu" class="absolute right-0 hidden bg-white shadow-xl mt-2 rounded-xl p-2 z-50 w-48 border border-gray-200 animate-slide-down">
+                        <a id="profile" class="flex items-center gap-3 hover:bg-gradient-to-r from-amber-100 to-amber-200 p-3 rounded-lg transition-all duration-200 text-gray-700 cursor-pointer">
+                            <i class="fas fa-user-circle text-amber-500"></i>
+                            <span class="font-medium">My Profile</span>
+                        </a>
+                        <a id="dashboard" class="flex items-center gap-3 hover:bg-gradient-to-r from-amber-100 to-amber-200 p-3 rounded-lg transition-all duration-200 text-gray-700 cursor-pointer">
+                            <i class="fas fa-calendar-check text-amber-500"></i>
+                            <span class="font-medium">Dashboard</span>
+                        </a>
+                        <div class="border-t border-gray-200 my-2"></div>
+                        <button id="nav-logout-btn" class="w-full flex items-center gap-3 cursor-pointer hover:bg-gradient-to-r from-red-50 to-red-100 p-3 rounded-lg transition-all duration-200 text-gray-700 hover:text-red-600">
+                            <i class="fas fa-sign-out-alt text-red-500"></i>
+                            <span class="font-medium">Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sidebar" class="fixed hidden right-0 top-0 flex flex-col gap-4 p-8 w-72 h-full bg-white shadow-lg z-[9999] md:hidden">
+                <div class="flex justify-end right-4 items-center"><button id="close-btn" class="text-gray-700 w-15 text-3xl font-bold">&times;</button></div>
+                <div class="flex flex-col gap-2 sm:gap-4 justify-between">
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="/index.html">Home</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../profile/profile.html">Personal Info</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../userManagement/userManagement.html">User Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../bookingManagement/bookingManagement.html">Booking Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../roomManagement/roomManagement.html">Room Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../reportManagement/reportManagement.html">Report Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../contentManagement/contentManagement.html">Content Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../feedbackManagement/feedbackManagement.html">Feedback Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../notificationManagement/notificationManagement.html">Notification Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../backupRestore/backupRestore.html">Backup & Restore</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><button id="nav-logout">Logout</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-row text-sm sm:text-base mt-20">
+            <div class="md:flex md:flex-col w-72 gap-2 p-7 justify-center bg-gradient-to-r from-amber-300 to-amber-500 hidden">
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../profile/profile.html">Personal Info</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../userManagement/userManagement.html">User Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../bookingManagement/bookingManagement.html">Booking Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../roomManagement/roomManagement.html">Room Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../reportManagement/reportManagement.html">Report Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../contentManagement/contentManagement.html">Content Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../feedbackManagement/feedbackManagement.html">Feedback Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../notificationManagement/notificationManagement.html">Notification Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../backupRestore/backupRestore.html">Backup & Restore</a></div>
+                <div class="transition-transform duration-300 rounded-2xl hover:bg-white hover:scale-105"><button id="side-logout" class="font-semibold p-2">Logout</button></div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="flex flex-col w-full my-9">
+              <!-- Content Management Form -->
+              <div class="flex justify-center items-center p-4">
+                <div class="bg-white rounded-3xl shadow-xl border-2 border-gray-300 w-full max-w-2xl p-8">
+                  
+                  <!-- Navigation Tabs -->
+                  <div class="flex flex-wrap gap-2 text-sm">
+                    <button class="nav-tab active bg-amber-100 px-2 py-2 rounded-2xl font-semibold" data-section="home">Home</button>
+                    <button class="nav-tab px-2 py-2 rounded-2xl font-semibold hover:bg-gray-100" data-section="about">About</button>
+                    <button class="nav-tab px-2 py-2 rounded-2xl font-semibold hover:bg-gray-100" data-section="gallery">Gallery</button>
+                    <button class="nav-tab px-2 py-2 rounded-2xl font-semibold hover:bg-gray-100" data-section="contact">Contact</button>
+                    <button class="nav-tab px-2 py-2 rounded-2xl font-semibold hover:bg-gray-100" data-section="policy">Policy</button>
+                  </div>
+
+                  <!-- Home Section -->
+                  <div id="home-section" class="content-section">
+                    <div class="flex justify-between items-center">
+                      <h2 class="text-2xl font-bold">Home</h2>
+                      <button class="edit-btn text-amber-600 hover:text-amber-800">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                        </svg>
+                        Edit
+                      </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                      <div>
+                        <label class="block text-sm font-semibold">Hero Title</label>
+                        <input type="text" id="heroTitle" class="w-full px-2 py-2 border-2 border-gray-300 rounded-2xl focus:border-gray-300 focus:outline-none" value="Stay where comfort meets convenience" disabled>
+                      </div>
+                      
+                      <div>
+                        <label class="block text-sm font-semibold">Hero Subtitle</label>
+                        <textarea id="heroSubtitle" class="w-full px-2 py-2 border-2 border-gray-300 rounded-2xl focus:border-gray-300 focus:outline-none h-24 resize-none" disabled>Experience luxury and comfort at EazyStay. Your perfect home away from home with world-class amenities and exceptional service.</textarea>
+                      </div>
+
+                      <div>
+                        <label class="block text-sm font-semibold">Change Home Image</label>
+                        <div class="flex items-center gap-4">
+                          <button class="px-2 py-2 bg-gray-200 rounded-2xl hover:bg-gray-300" disabled>Upload File</button>
+                          <span class="text-sm text-gray-500">home-hero.jpg</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- About Section -->
+                  <div id="about-section" class="content-section hidden">
+                    <div class="flex justify-between items-center">
+                      <h2 class="text-2xl font-bold">About</h2>
+                      <button class="edit-btn text-amber-600 hover:text-amber-800">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                        </svg>
+                        Edit
+                      </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                      <div>
+                        <label class="block text-sm font-semibold">About Us Content</label>
+                        <textarea id="aboutContent" class="w-full px-2 py-2 border-2 border-gray-300 rounded-2xl focus:border-gray-300 focus:outline-none h-32 resize-none" disabled>Welcome to EazyStay, where luxury meets comfort in the heart of the city. Our hotel offers premium accommodations with modern amenities, exceptional service, and unforgettable experiences for every guest.</textarea>
+                      </div>
+                      
+                      <div>
+                        <label class="block text-sm font-semibold">Mission Statement</label>
+                        <textarea id="missionStatement" class="w-full px-2 py-2 border-2 border-gray-300 rounded-2xl focus:border-gray-300 focus:outline-none h-24 resize-none" disabled>To provide exceptional hospitality experiences that create lasting memories for our guests while maintaining the highest standards of service and comfort.</textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Gallery Section -->
+                  <div id="gallery-section" class="content-section hidden">
+                    <div class="flex justify-between items-center">
+                      <h2 class="text-2xl font-bold">Gallery</h2>
+                      <button class="edit-btn text-amber-600 hover:text-amber-800">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                        </svg>
+                        Edit
+                      </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                      <div>
+                        <label class="block text-sm font-semibold">Gallery Description</label>
+                        <textarea id="galleryDescription" class="w-full px-2 py-2 border-2 border-gray-300 rounded-2xl focus:border-gray-300 focus:outline-none h-24 resize-none" disabled>Explore our beautiful spaces and amenities through our photo gallery. From elegant rooms to stunning common areas, see what makes EazyStay special.</textarea>
+                      </div>
+                      
+                      <div>
+                        <label class="block text-sm font-semibold">Upload Gallery Images</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center">
+                          <button class="px-6 py-2 bg-gray-200 rounded-2xl hover:bg-gray-300" disabled>Choose Images</button>
+                          <p class="mt-2 text-sm text-gray-500">Upload multiple images for the gallery</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Contact Section -->
+                  <div id="contact-section" class="content-section hidden">
+                    <div class="flex justify-between items-center">
+                      <h2 class="text-2xl font-bold">Contact</h2>
+                      <button class="edit-btn text-amber-600 hover:text-amber-800">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                        </svg>
+                        Edit
+                      </button>
+                    </div>
+                    
+                    <div class="space-y-2">
+                      <div>
+                        <label class="block text-sm font-semibold">Address</label>
+                        <textarea id="address" class="w-full px-2 py-2 border-2 border-gray-300 rounded-2xl focus:border-gray-300 focus:outline-none h-12 resize-none" disabled>123, Main Road, R.S puram, Coimbatore.</textarea>
+                      </div>
+                      
+                      <div>
+                        <label class="block text-sm font-semibold">Mobile Number</label>
+                        <input type="tel" id="mobileNumber" class="w-full px-2 py-2 border-2 border-gray-300 rounded-2xl focus:border-gray-300 focus:outline-none" value="+91 9876543210" disabled>
+                      </div>
+
+                      <div>
+                        <label class="block text-sm font-semibold">Mail id</label>
+                        <input type="email" id="mail" class="w-full px-2 py-2 border-2 border-gray-300 rounded-2xl focus:border-gray-300 focus:outline-none" value="eazystay@gmail.com" disabled>
+                      </div>
+                      
+                      <div>
+                        <label class="block text-sm font-semibold">Location (Google Maps Link)</label>
+                        <input type="url" id="locationLink" class="w-full px-2 py-2 border-2 border-gray-300 rounded-2xl focus:border-gray-300 focus:outline-none" value="https://maps.google.com/eazystay-hotel" disabled>
+                      </div>
+                      
+                    </div>
+                  </div>
+
+                  <div id="policy-section" class="content-section hidden">
+                    <div class="flex justify-between items-center">
+                      <h2 class="text-2xl font-bold">Policy</h2>
+                      <button class="edit-btn text-amber-600 hover:text-amber-800">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                        </svg>
+                        Edit
+                      </button>
+                    </div>
+                    
+                    <div class="space-y-2">
+                      <div>
+                        <label class="block text-sm font-semibold">Cancellation Policy</label>
+                        <textarea id="cancellationPolicy" class="w-full px-2 py-2 border-2 border-gray-300 rounded-2xl focus:border-gray-300 focus:outline-none h-32 resize-none" disabled>Free cancellation up to 24 hours before check-in. Cancellations made within 24 hours of check-in will be charged 50% of the first night's rate. No-show bookings will be charged the full amount. Special rates and packages may have different cancellation terms.</textarea>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <!-- Action Buttons -->
+                  <div class="flex justify-end gap-4">
+                    <button id="saveBtn" class=" px-4 bg-gradient-to-r from-amber-300 to-amber-500 text-black hover:bg-amber-500 font-semibold rounded-3xl transition-all duration-300 hidden">Save</button>
+                    <button id="cancelBtn" class="px-6 py-2 bg-gray-300 text-gray-700 font-semibold rounded-3xl hover:bg-gray-400 transition-all duration-300 hidden">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  </div>
+
+  <script src="contentManagement.js"></script>
+</body>
+</html>

@@ -1,0 +1,765 @@
+{
+  "rooms": [
+    {
+      "id": "D1",
+      "type": "Deluxe",
+      "price": 2499,
+      "capacity": 2,
+      "details": "King bed, Living Area",
+      "bedType": "King bed",
+      "status": "Available",
+      "img": "/images/deluxe1.jpg",
+      "bookings": [
+        {
+          "from": "2025-09-22",
+          "to": "2025-09-24",
+          "bookingId": "B1"
+        },
+        {
+          "from": "2025-09-27",
+          "to": "2025-09-29",
+          "id": "B4"
+        },
+        {
+          "from": "2025-09-26",
+          "to": "2025-09-27",
+          "bookingId": "B7"
+        },
+        {
+          "from": "2025-09-26",
+          "to": "2025-09-27",
+          "bookingId": "B8"
+        },
+        {
+          "from": "2025-09-30",
+          "to": "2025-10-02",
+          "bookingId": "B9"
+        },
+        {
+          "from": "2025-10-03",
+          "to": "2025-10-05",
+          "bookingId": "B11"
+        }
+      ]
+    },
+    {
+      "id": "D2",
+      "type": "Deluxe",
+      "price": 2999,
+      "capacity": 4,
+      "details": "Queen bed, City view",
+      "bedType": "Queen",
+      "status": "Available",
+      "img": "/images/deluxe2.jpg",
+      "bookings": [
+        {
+          "from": "2025-09-30",
+          "to": "2025-10-02",
+          "bookingId": "B9"
+        }
+      ]
+    },
+    {
+      "id": "D3",
+      "type": "Deluxe",
+      "price": 2899,
+      "capacity": 2,
+      "details": "Quiet floor, Complimentary water",
+      "bedType": "Queen",
+      "status": "Available",
+      "img": "/images/deluxe3.jpg",
+      "bookings": [
+        {
+          "from": "2025-10-01",
+          "to": "2025-10-03",
+          "bookingId": "B10"
+        }
+      ]
+    },
+    {
+      "id": "D4",
+      "type": "Deluxe",
+      "price": 3199,
+      "capacity": 3,
+      "details": "Newly renovated",
+      "bedType": "Queen",
+      "status": "Available",
+      "img": "/images/deluxe4.jpg",
+      "bookings": [
+        {
+          "from": "2025-10-01",
+          "to": "2025-10-04",
+          "bookingId": "B12"
+        }
+      ]
+    },
+    {
+      "id": "D5",
+      "type": "Deluxe",
+      "price": 2699,
+      "capacity": 2,
+      "details": "Budget-friendly deluxe",
+      "bedType": "Queen",
+      "status": "Maintenance",
+      "img": "/images/deluxe5.jpg",
+      "bookings": []
+    },
+    {
+      "id": "S1",
+      "type": "Suite",
+      "price": 4999,
+      "capacity": 3,
+      "details": "King bed, Living area, Mini-bar",
+      "bedType": "King",
+      "status": "Available",
+      "img": "/images/suite1.jpg",
+      "bookings": [
+        {
+          "from": "2025-09-27",
+          "to": "2025-09-29"
+        },
+        {
+          "from": "2025-09-24",
+          "to": "2025-09-25",
+          "bookingId": "B6"
+        },
+        {
+          "from": "2025-10-01",
+          "to": "2025-10-04",
+          "bookingId": "B12"
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "type": "Suite",
+      "price": 5199,
+      "capacity": 2,
+      "details": "Premium suite",
+      "bedType": "King",
+      "status": "Available",
+      "img": "/images/suite2.jpg",
+      "bookings": [
+        {
+          "from": "2025-09-27",
+          "to": "2025-09-28",
+          "bookingId": "B8"
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "type": "Suite",
+      "price": 4899,
+      "capacity": 3,
+      "details": "Corner suite with view",
+      "bedType": "King",
+      "status": "Available",
+      "img": "/images/suite3.jpg",
+      "bookings": []
+    },
+    {
+      "id": "S4",
+      "type": "Suite",
+      "price": 5050,
+      "capacity": 2,
+      "details": "Executive suite",
+      "bedType": "King",
+      "status": "Available",
+      "img": "/images/suite4.jpg",
+      "bookings": [
+        {
+          "from": "2025-09-22",
+          "to": "2025-09-24"
+        }
+      ]
+    },
+    {
+      "id": "S5",
+      "type": "Suite",
+      "price": 4780,
+      "capacity": 2,
+      "details": "Cozy suite",
+      "bedType": "King",
+      "status": "Available",
+      "img": "/images/suite5.jpg",
+      "bookings": []
+    },
+    {
+      "id": "F1",
+      "type": "Family",
+      "price": 3899,
+      "capacity": 4,
+      "details": "Two beds, Family-friendly",
+      "bedType": "2x Double",
+      "status": "Available",
+      "img": "/images/family1.jpg",
+      "bookings": [
+        {
+          "from": "2025-09-27",
+          "to": "2025-09-29",
+          "id": "B4"
+        },
+        {
+          "from": "2025-09-26",
+          "to": "2025-09-27",
+          "bookingId": "B7"
+        },
+        {
+          "from": "2025-09-26",
+          "to": "2025-09-27",
+          "bookingId": "B8"
+        }
+      ]
+    },
+    {
+      "id": "F2",
+      "type": "Family",
+      "price": 4099,
+      "capacity": 3,
+      "details": "Extra space, Sofa-bed",
+      "bedType": "2x Double",
+      "status": "Available",
+      "img": "/images/family2.jpg",
+      "bookings": [
+        {
+          "from": "2025-09-20",
+          "to": "2025-09-23"
+        }
+      ]
+    },
+    {
+      "id": "F3",
+      "type": "Family",
+      "price": 3999,
+      "capacity": 5,
+      "details": "Large room for family",
+      "bedType": "2x Double",
+      "status": "Available",
+      "img": "/images/family3.jpg",
+      "bookings": []
+    },
+    {
+      "id": "F4",
+      "type": "Family",
+      "price": 4200,
+      "capacity": 5,
+      "details": "Two-bedroom family",
+      "bedType": "2x Double",
+      "status": "Available",
+      "img": "/images/family4.jpg",
+      "bookings": []
+    },
+    {
+      "id": "F5",
+      "type": "Family",
+      "price": 3799,
+      "capacity": 2,
+      "details": "Family economy",
+      "bedType": "2x Double",
+      "status": "Available",
+      "img": "/images/family5.jpg",
+      "bookings": []
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Santhiya",
+      "email": "santhiyasm@gmail.com",
+      "dob": "2004-12-15",
+      "mobile": "7502305712",
+      "password": "Santhiya@123",
+      "role": "admin",
+      "status": "login"
+    },
+    {
+      "id": "2",
+      "name": "Dharshini",
+      "email": "dharshini@gmail.com",
+      "dob": "2004-12-15",
+      "mobile": "7502305712",
+      "password": "Dharshini@123",
+      "role": "user",
+      "status": "logout"
+    },
+    {
+      "id": "3",
+      "name": "Saranya",
+      "email": "saranya15@gmail.com",
+      "dob": "2011-12-12",
+      "mobile": "9994110162",
+      "password": "Saranya@15",
+      "role": "user",
+      "status": "logout"
+    },
+    {
+      "id": "5",
+      "name": "Sara",
+      "email": "sara@gmail.com",
+      "mobile": "7418779762",
+      "dob": "2018-01-31",
+      "password": "Sara@123",
+      "role": "user",
+      "status": "logout"
+    },
+    {
+      "id": "6",
+      "name": "Santhosh",
+      "email": "santhosh@gmail.com",
+      "dob": "2025-09-17",
+      "mobile": "6382902889",
+      "password": "Santhosh@123",
+      "role": "user",
+      "status": "logout"
+    },
+    {
+      "id": "7",
+      "name": "Prabha",
+      "email": "prabha@gmail.com",
+      "dob": "2025-09-16",
+      "mobile": "9846734782",
+      "password": "prabha123",
+      "role": "user",
+      "status": "logout"
+    },
+    {
+      "id": "7",
+      "name": "Subathra",
+      "email": "subathra@gmail.com",
+      "dob": "2004-06-06",
+      "mobile": "9876543210",
+      "password": "Suba@123",
+      "role": "user",
+      "status": "logout"
+    },
+    {
+      "id": "8",
+      "name": "Manju",
+      "email": "manju@gmail.com",
+      "dob": "1998-06-10",
+      "mobile": "9876543210",
+      "password": "Manju@123",
+      "role": "user",
+      "status": "logout"
+    },
+    {
+      "id": "9",
+      "name": "Priya",
+      "email": "priya@gmail.com",
+      "dob": "1999-07-17",
+      "mobile": "6382902889",
+      "password": "Priya@123",
+      "role": "user",
+      "status": "logout"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "B1",
+      "checkin": "2025-08-12",
+      "checkout": "2025-08-14",
+      "nights": 2,
+      "requestedRooms": 1,
+      "roomGuestRequests": [
+        2
+      ],
+      "selectedRooms": [
+        "D1"
+      ],
+      "subtotal": 4998,
+      "tax": 900,
+      "total": 5898,
+      "user": "3",
+      "status": "Completed",
+      "feedbackId": null
+    },
+    {
+      "id": "B2",
+      "checkin": "2025-09-22",
+      "checkout": "2025-09-24",
+      "nights": 2,
+      "requestedRooms": 1,
+      "roomGuestRequests": [
+        2
+      ],
+      "selectedRooms": [
+        "D1"
+      ],
+      "subtotal": 4998,
+      "tax": 900,
+      "total": 5898,
+      "user": "3",
+      "status": "Completed"
+    },
+    {
+      "id": "B3",
+      "checkin": "2025-09-24",
+      "checkout": "2025-09-26",
+      "nights": 2,
+      "requestedRooms": 1,
+      "roomGuestRequests": [
+        2
+      ],
+      "selectedRooms": [
+        "D1"
+      ],
+      "subtotal": 4998,
+      "tax": 900,
+      "total": 4998,
+      "user": "3",
+      "status": "Ongoing"
+    },
+    {
+      "id": "B4",
+      "checkin": "2025-09-27",
+      "checkout": "2025-09-29",
+      "nights": 2,
+      "requestedRooms": 1,
+      "roomGuestRequests": [
+        2
+      ],
+      "selectedRooms": [],
+      "subtotal": 4998,
+      "tax": 900,
+      "total": 0,
+      "user": "3",
+      "status": "Cancelled",
+      "refund": 3998.4
+    },
+    {
+      "id": "B5",
+      "checkin": "2025-09-24",
+      "checkout": "2025-09-26",
+      "nights": 4,
+      "requestedRooms": 1,
+      "roomGuestRequests": [
+        1
+      ],
+      "selectedRooms": [
+        "D1"
+      ],
+      "subtotal": 2499,
+      "tax": 450,
+      "total": 4998,
+      "user": "5",
+      "status": "Ongoing"
+    },
+    {
+      "id": "B6",
+      "checkin": "2025-09-24",
+      "checkout": "2025-09-25",
+      "nights": 1,
+      "requestedRooms": 1,
+      "roomGuestRequests": [
+        1
+      ],
+      "selectedRooms": [
+        "S1"
+      ],
+      "subtotal": 4999,
+      "tax": 900,
+      "total": 5899,
+      "user": "3",
+      "status": "Completed"
+    },
+    {
+      "id": "B7",
+      "checkin": "2025-09-26",
+      "checkout": "2025-09-27",
+      "nights": 1,
+      "requestedRooms": 2,
+      "roomGuestRequests": [
+        1
+      ],
+      "selectedRooms": [
+        "D1",
+        "F1"
+      ],
+      "subtotal": 6398,
+      "tax": 1152,
+      "total": 7550,
+      "user": "7",
+      "status": "Ongoing"
+    },
+    {
+      "id": "B8",
+      "checkin": "2025-09-29",
+      "checkout": "2025-09-30",
+      "nights": 1,
+      "requestedRooms": 1,
+      "roomGuestRequests": [
+        1
+      ],
+      "selectedRooms": [
+        "S2",
+        "F1"
+      ],
+      "subtotal": 5199,
+      "tax": 936,
+      "total": 6135,
+      "user": 8,
+      "status": "Upcoming"
+    },
+    {
+      "id": "B9",
+      "checkin": "2025-09-30",
+      "checkout": "2025-10-02",
+      "nights": 2,
+      "requestedRooms": 2,
+      "roomGuestRequests": [
+        1
+      ],
+      "selectedRooms": [
+        "D1",
+        "D2"
+      ],
+      "subtotal": 10996,
+      "tax": 1979,
+      "total": 12975,
+      "user": "3",
+      "status": "Upcoming"
+    },
+    {
+      "id": "B10",
+      "checkin": "2025-10-01",
+      "checkout": "2025-10-03",
+      "nights": 1,
+      "requestedRooms": 1,
+      "roomGuestRequests": [
+        1
+      ],
+      "selectedRooms": [
+        "D3"
+      ],
+      "subtotal": 2899,
+      "tax": 522,
+      "total": 3421,
+      "user": "3",
+      "status": "Upcoming"
+    },
+    {
+      "id": "B11",
+      "checkin": "2025-10-03",
+      "checkout": "2025-10-05",
+      "nights": 1,
+      "requestedRooms": 1,
+      "roomGuestRequests": [
+        1
+      ],
+      "selectedRooms": [
+        "D1"
+      ],
+      "subtotal": 2499,
+      "tax": 450,
+      "total": 2949,
+      "user": "8",
+      "status": "Rescheduled",
+      "refund": 2949
+    },
+    {
+      "id": "B12",
+      "checkin": "2025-10-01",
+      "checkout": "2025-10-04",
+      "nights": 1,
+      "requestedRooms": 2,
+      "roomGuestRequests": [
+        1
+      ],
+      "selectedRooms": [
+        "S1",
+        "D4"
+      ],
+      "subtotal": 8198,
+      "tax": 1476,
+      "total": 9674,
+      "user": 9,
+      "status": "Cancelled",
+      "refund": 7739.200000000001
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "F1",
+      "user": "2",
+      "date": "2025-08-23",
+      "content": "Nice hotel",
+      "rating": 3
+    },
+    {
+      "id": "F2",
+      "user": "3",
+      "date": "2025-08-24",
+      "content": "Nice hotel",
+      "rating": 3
+    },
+    {
+      "id": "F3",
+      "user": "4",
+      "date": "2025-09-12",
+      "content": "Affordable and comfortable stay",
+      "rating": 4
+    },
+    {
+      "id": "F5",
+      "user": "3",
+      "date": "2025-09-23",
+      "content": "Nice",
+      "rating": 3
+    },
+    {
+      "id": "F5",
+      "user": "5",
+      "date": "2025-09-24",
+      "content": "Nice hotel",
+      "rating": 4
+    },
+    {
+      "id": "051e",
+      "rating": "4",
+      "comment": "nice room & stay",
+      "bookingId": "B2",
+      "date": "2025-09-28"
+    },
+    {
+      "id": "463e",
+      "rating": "4",
+      "comment": "nice",
+      "bookingId": "B1",
+      "date": "2025-09-29"
+    }
+  ],
+  "deletionRequests": [
+    {
+      "id": "dr1",
+      "userId": "3",
+      "date": "2025-09-26T07:40:14.101Z",
+      "status": "Rejected"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "e23",
+      "bookingId": "B5",
+      "date": "2025-09-24",
+      "mode": "upi",
+      "amount": 2499
+    },
+    {
+      "id": "98e5",
+      "bookingId": "B5",
+      "mode": "upi",
+      "date": "2025-09-24T10:59:30.401Z",
+      "amount": 2499
+    },
+    {
+      "id": "dcfe",
+      "bookingId": "B5",
+      "mode": "upi",
+      "date": "2025-09-24T11:29:11.547Z",
+      "amount": 4998
+    },
+    {
+      "id": "191c",
+      "bookingId": "B6",
+      "mode": "upi",
+      "date": "2025-09-24T16:44:10.493Z",
+      "amount": 5899
+    },
+    {
+      "id": "7786",
+      "bookingId": "B7",
+      "mode": "upi",
+      "date": "2025-09-26T07:25:03.374Z",
+      "amount": 7550
+    },
+    {
+      "id": "98bd",
+      "bookingId": "B8",
+      "mode": "upi",
+      "date": "2025-09-29T02:38:54.624Z",
+      "amount": 6135
+    },
+    {
+      "id": "997e",
+      "bookingId": "B9",
+      "mode": "upi",
+      "date": "2025-09-29T02:39:17.548Z",
+      "amount": 6135
+    },
+    {
+      "id": "bbd9",
+      "bookingId": "B8",
+      "mode": "upi",
+      "date": "2025-09-29T02:39:56.028Z",
+      "amount": 6135
+    },
+    {
+      "id": "2ab0",
+      "bookingId": "B9",
+      "mode": "net",
+      "date": "2025-09-29T10:19:14.399Z",
+      "amount": 12975
+    },
+    {
+      "id": "3dfc",
+      "bookingId": "B10",
+      "mode": "upi",
+      "date": "2025-09-29T11:38:32.160Z",
+      "amount": 3421
+    },
+    {
+      "id": "1d6e",
+      "bookingId": "B11",
+      "mode": "upi",
+      "date": "2025-09-29T11:43:15.950Z",
+      "amount": 2949
+    },
+    {
+      "id": "5384",
+      "bookingId": "B12",
+      "mode": "upi",
+      "date": "2025-09-29T15:26:54.411Z",
+      "amount": 9674
+    }
+  ],
+  "notifications": [
+    {
+      "id": "13df",
+      "name": "santhiya",
+      "email": "santhiya@gmail.com",
+      "message": "hello",
+      "timestamp": "2025-09-25T11:00:53.101Z",
+      "status": "replied",
+      "reply": {
+        "subject": "Re: Your inquiry - EazyStay",
+        "message": "fg",
+        "timestamp": "2025-09-26T07:46:32.153Z"
+      }
+    },
+    {
+      "id": "820f",
+      "name": "Manju",
+      "email": "manju@gmail.com",
+      "message": "I need to book room",
+      "timestamp": "2025-09-25T11:02:32.309Z",
+      "status": "new"
+    },
+    {
+      "id": "1361",
+      "name": "Sakthi",
+      "email": "sakthi@gmail.com",
+      "message": "I want to cancel the room",
+      "timestamp": "2025-09-25T11:05:26.153Z",
+      "status": "new"
+    },
+    {
+      "id": "3dc3",
+      "name": "Saranya",
+      "email": "saranya15@gmail.com",
+      "message": "i need to book room",
+      "timestamp": "2025-09-26T07:45:55.517Z",
+      "status": "new"
+    }
+  ]
+}

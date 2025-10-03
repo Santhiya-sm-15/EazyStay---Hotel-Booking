@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Rooms</title>
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Calligraffitti&family=Gabarito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="/images/logo.png" rel="icon">    
+    <script>
+        tailwind.config={
+            theme: {
+                extend: {
+                    fontFamily: {
+                        berkshire: ['"Berkshire Swash"', 'cursive'],
+                        calli: ['"Calligraffitti"', 'cursive'],
+                        gabarito: ['"Gabarito"', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-gabarito text-md md:text-base relative">
+    <div class="fixed top-0 h-20 z-50 w-full flex flex-row gap-4 bg-white shadow-xl justify-between items-center p-2 transition-all duration-1000">
+        <div class="flex flex-row gap-2 p-4 items-center">
+            <div class="w-12 h-12 rounded-full border-2 border-yellow-400 bg-[url('/images/logo.png')] bg-cover bg-center"></div>
+            <div class="font-berkshire font-bold text-2xl">EazyStay</div>
+        </div>
+        <div>
+            <button id="hamburger-btn" class="p-4 space-y-1.5 md:hidden">
+                <div class="w-6 h-0.5 bg-gray-700"></div>
+                <div class="w-6 h-0.5 bg-gray-700"></div>
+                <div class="w-6 h-0.5 bg-gray-700"></div>
+            </button>
+        </div>
+        <div class="md:flex-row md:gap-2 lg:gap-4 items-center hidden md:flex">
+            <div class="font-semibold">
+                <a href="/index.html" class="flex items-center gap-2 rounded-lg transition-all duration-200 text-gray-700 hover:text-amber-600">
+                    <i class="fas fa-home"></i>
+                    <span class="font-medium">Home</span>
+                </a>
+            </div>
+            <div id="nav-login" class="font-semibold p-2 bg-gradient-to-r from-amber-300 to-amber-500 rounded-2xl hover:scale-105 cursor-pointer">Login/Signup</div>
+                <!-- User Dropdown (shown when logged in) -->
+                <div id="nav-user-dropdown" class="relative group hidden">
+                    <button id="nav-user-btn" class="flex items-center gap-2 bg-gradient-to-r from-amber-300 to-amber-500 p-1 rounded-2xl transition-all duration-300 shadow-lg hover:scale-105">
+                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <i class="fas fa-user text-sm"></i>
+                        </div>
+                        <span id="nav-username" class="font-semibold"></span>
+                        <i class="fas fa-chevron-down text-xs transition-transform duration-200" id="nav-dropdown-arrow"></i>
+                    </button>
+                    <div id="nav-user-menu" class="absolute right-0 hidden bg-white shadow-xl mt-2 rounded-xl p-2 z-50 w-48 border border-gray-200 animate-slide-down">
+                        <a id="nav-profile" class="flex items-center gap-3 hover:bg-gradient-to-r from-amber-100 to-amber-200 p-3 rounded-lg transition-all duration-200 text-gray-700">
+                            <i class="fas fa-user-circle text-amber-500"></i>
+                            <span class="font-medium">My Profile</span>
+                        </a>
+                        <a id="nav-my-bookings" class="flex hidden items-center gap-3 hover:bg-gradient-to-r from-amber-100 to-amber-200 p-3 rounded-lg transition-all duration-200 text-gray-700">
+                            <i class="fas fa-calendar-check text-amber-500"></i>
+                            <span class="font-medium">My Bookings</span>
+                        </a>
+                        <a id="nav-dashboard" class="flex hidden items-center gap-3 hover:bg-gradient-to-r from-amber-100 to-amber-200 p-3 rounded-lg transition-all duration-200 text-gray-700 cursor-pointer">
+                            <i class="fas fa-calendar-check text-amber-500"></i>
+                            <span class="font-medium">Dashboard</span>
+                        </a>
+                        <div class="border-t border-gray-200 my-2"></div>
+                        <button id="nav-logout-btn" class="w-full flex items-center gap-3 hover:bg-gradient-to-r from-red-50 to-red-100 p-3 rounded-lg transition-all duration-200 text-gray-700 hover:text-red-600">
+                            <i class="fas fa-sign-out-alt text-red-500"></i>
+                            <span class="font-medium">Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="sidebar" class="fixed hidden right-0 top-0 flex flex-col gap-4 p-8 w-64 h-full bg-white shadow-lg z-20 md:hidden">
+                <div class="flex justify-end right-4 items-center"><button id="close-btn" class="text-gray-700 w-15 text-3xl font-bold">&times;</button></div>
+                <div class="flex flex-col gap-4 justify-between">
+                    <div id="side-user-section" class="hidden border-b border-gray-200 pb-4 mb-4">
+                        <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-amber-100 to-amber-200 rounded-xl">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-amber-300 to-amber-500 flex items-center justify-center text-white">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <div id="side-username" class="font-semibold text-gray-800"></div>
+                                <div class="text-sm text-gray-600">Welcome back!</div>
+                            </div>
+                        </div>
+                        <div class="mt-3 space-y-2">
+                            <a id="side-profile" class="flex items-center gap-3 p-2 text-gray-700 hover:bg-gradient-to-r from-amber-100 to-amber-200 rounded-lg transition-all">
+                                <i class="fas fa-user-circle text-amber-500"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a id="side-my-bookings" class="flex items-center gap-3 p-2 text-gray-700 hover:bg-gradient-to-r from-amber-100 to-amber-200 rounded-lg transition-all">
+                                <i class="fas fa-calendar-check text-amber-500"></i>
+                                <span>My Bookings</span>
+                            </a>
+                            <a id="side-dashboard" class="flex items-center gap-3 p-2 text-gray-700 hover:bg-gradient-to-r from-amber-100 to-amber-200 rounded-lg transition-all">
+                                <i class="fas fa-calendar-check text-amber-500"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            <button id="side-logout-btn" class="w-full flex items-center gap-3 p-2 text-gray-700 hover:bg-gradient-to-r from-red-50 to-red-100 rounded-lg transition-all">
+                                <i class="fas fa-sign-out-alt text-red-500"></i>
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                    <a href="/index.html" class="flex items-center gap-3 hover:bg-gradient-to-r from-amber-50 to-amber-100 p-2 rounded-lg transition-all duration-200 text-gray-700 hover:text-amber-600">
+                        <i class="fas fa-home text-amber-500"></i>
+                        <span class="font-medium">Home</span>
+                    </a>
+                    <div id="side-login" class="font-semibold hover:scale-105 hover:bg-gradient-to-r from-amber-300 to-amber-500 rounded-2xl p-2"><span>Login/Signup</span></div>
+                </div>
+            </div>
+        </div>
+    </div>        
+    <div class="mt-28 mb-16 mx-12 lg:mx-32 relative inline-block flex flex-col sm:flex-row justify-around text-xs md:text-base items-center gap-2 md:gap-4 lg:gap-8 rounded-3xl bg-gradient-to-r from-amber-300 to-amber-500 p-3">
+        <div class="flex gap-2 flex-row items-center">
+            <div>Check-in</div>
+            <input type="date" id="check-in" class="focus:outline-none px-2 rounded-xl border-2 bg-transparent border-white">
+        </div>
+        <div class="flex gap-2 flex-row items-center">
+            <div>Check-out</div>
+            <input type="date" id="check-out" class="focus:outline-none px-2 rounded-xl border-2 bg-transparent border-white">
+        </div>
+        <button id="guest-toggle">1 guest,1 room</button>
+        <!-- Dropdown Panel -->
+        <div id="guest-panel" class="absolute top-full sm:right-2 w-48 sm:w-72 bg-white border rounded-xl shadow-lg p-4 hidden z-50">
+            <!-- Room 1 -->
+            <div id="add" class="space-y-4">
+                <div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold">Room 1</span>
+                    </div>
+                    <!-- People -->
+                    <div class="flex gap-2 sm:justify-between items-center">
+                        <span>Person(s)</span>
+                        <div class="flex items-center gap-3">
+                            <button class="decrement w-8 h-8 border rounded-full">-</button>
+                            <span class="people-count">1</span>
+                            <button class="increment w-8 h-8 border rounded-full">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="add-room-btn" class="mt-4 flex flex-row justify-between">
+                    <button id="add-room" class="text-red-500 font-semibold underline">+ Add rooms</button>
+                    <button id="remove-room" class="text-red-500 font-semibold underline">- Remove rooms</button>    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main layout -->
+    <main class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-6 pb-12">
+        <!-- Left: Filters + Rooms -->
+        <section class="lg:col-span-2 space-y-6">
+            <!-- Filter bar -->
+            <div id="filterBar" class="flex items-center justify-between relative">
+                <h2 class="text-2xl font-bold">Choose your room</h2>
+                <div class="flex flex-row gap-2">
+                    <button id="clear-selection" class="px-3 py-2 bg-white border bg-gradient-to-r from-amber-300 to-amber-500 rounded-2xl shadow-sm text-sm">Clear</button>
+                    <button id="toggleFilters" class="px-3 py-2 bg-white border bg-gradient-to-r from-amber-300 to-amber-500 rounded-2xl shadow-sm text-sm">Filters ▼</button>
+                </div>  
+                <!-- Dropdown panel -->
+                <div id="filtersPanel" class="absolute right-0 top-full mt-2 bg-white p-4 rounded shadow-sm hidden z-20 w-64">
+                    <div class="font-medium mb-2">Room Type</div>
+                    <label class="block"><input type="checkbox" class="filter-type mr-2" value="Deluxe" /> Deluxe</label>
+                    <label class="block"><input type="checkbox" class="filter-type mr-2" value="Suite" /> Suite</label>
+                    <label class="block"><input type="checkbox" class="filter-type mr-2" value="Family" /> Family</label>
+                    <div class="font-medium mt-4 mb-2">Price Range</div>
+                    <label class="block"><input type="checkbox" class="filter-price mr-2" value="lt3000" /> Less than ₹3,000</label>
+                    <label class="block"><input type="checkbox" class="filter-price mr-2" value="3000-4000" /> ₹3,000 - ₹4,000</label>
+                    <label class="block"><input type="checkbox" class="filter-price mr-2" value="gt4000" /> More than ₹4,000</label>
+                    <div class="flex justify-between mt-4 gap-2">
+                        <button id="applyFiltersBtn" class="flex-1 bg-gradient-to-r from-amber-300 to-amber-500 px-3 py-2 rounded-lg transition">Apply</button>
+                        <button id="clearFiltersBtn" class="flex-1 bg-gray-200 text-gray-800 px-3 py-2 rounded-lg transition">Clear</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Room types list -->
+            <div id="roomList" class="space-y-6"></div>
+        </section>
+        <!-- Right: Booking Summary -->
+        <aside class="bg-white rounded-lg p-6 shadow-sm sticky top-6">
+            <h3 class="text-xl font-bold mb-3">Booking Summary</h3>
+            <div class="text-sm text-gray-600 mb-2">Check-in: <span id="sideCheckin">—</span></div>
+            <div class="text-sm text-gray-600 mb-2">Check-out: <span id="sideCheckout">—</span></div>
+            <div class="text-sm text-gray-600 mb-4">Nights: <span id="sideNights">0</span></div>
+            <hr class="my-3">
+                <div id="selectedItems" class="space-y-2 text-sm">
+                    <div class="text-gray-500">No rooms selected</div>
+                </div>
+                <div class="mt-4 text-sm">
+                    <div class="flex justify-between"><div>Subtotal</div><div>₹<span id="subtotal">0</span></div></div>
+                    <div class="flex justify-between mt-2"><div>Taxes (18%)</div><div>₹<span id="tax">0</span></div></div>
+                    <div class="flex justify-between mt-2 font-bold text-lg"><div>Total</div><div>₹<span id="total">0</span></div></div>
+                </div>
+                <button id="continue-booking" disabled class="mt-5 w-full py-2 rounded bg-gradient-to-r from-amber-300 to-amber-500 text-white disabled:opacity-60">Continue to Booking</button>
+                <div id="continueHint" class="text-xs text-gray-500 mt-2">Select rooms to enable checkout.</div>
+            </hr>
+        </aside>
+    </main>
+
+    <!-- Room Modal -->
+    <div id="roomModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-lg p-6 relative">
+        <button id="closeRoomModal" class="absolute top-4 right-4 text-3xl text-gray-600 hover:text-black">&times;</button>
+        <div id="roomModalContent"></div>
+    </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
+        <div class="font-gabarito shadow-lg shadow-gray-600 w-full max-w-lg bg-[url('/images/login.jpg')] bg-cover bg-center rounded-2xl p-12 sm:p-6 relative">
+            <div class="relative max-w-md mx-auto rounded-3xl bg-white sm:m-6 p-6 sm:p-7">
+                <button id="close-login-modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                <h1 class="font-bold text-3xl text-center mb-8">Login</h1>
+                <form class="space-y-4 sm:space-y-6">
+                    <!-- Mail -->
+                    <div class="grid grid-cols-2">
+                        <label for="username" class="font-semibold row-span-2">Mail id</label>
+                        <input type="text" id="login-mail" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="login-mail-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Password -->
+                    <div class="grid grid-cols-2">
+                        <label for="password" class="font-semibold row-span-3">Password</label>
+                        <input type="password" id="login-password" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="login-pass-error" class="text-red-500 text-sm"></div>
+                        <div id="login-strength" class="text-sm font-semibold mt-1"></div>
+                    </div>
+                    <!-- Login Button -->
+                    <button id="login-btn" type="submit" class="font-bold text-md p-2 sm:text-lg sm:px-4 bg-gradient-to-r from-amber-300 to-amber-500 hover:bg-amber-500 rounded-3xl mx-auto block">Login</button>
+                </form>
+                <div class="text-center font-semibold">Don't have an account? <span id="signup-change" class="underline text-blue-600 cursor-pointer">Signup</span></div>
+                <div class="my-2 flex flex-row justify-between">
+                    <span id="forget-change" class="underline font-semibold cursor-pointer">Forget Password</span>
+                    <span id="reset-change" class="underline font-semibold cursor-pointer">Reset Password</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signup-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
+        <div class="font-gabarito shadow-lg shadow-gray-600 w-full max-w-lg bg-[url('/images/login.jpg')] bg-cover bg-center rounded-2xl p-12 sm:p-6 relative">
+            <div class="relative max-w-md mx-auto rounded-3xl bg-white sm:m-6 p-6 sm:p-7">
+                <button id="close-signup-modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                <h1 class="font-bold text-3xl text-center mb-8">Signup</h1>
+                <form class="space-y-4">
+                    <!-- Username -->
+                    <div class="grid grid-cols-2">
+                        <label for="username" class="font-semibold row-span-2">Username</label>
+                        <input type="text" id="signup-username" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="signup-user-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Email -->
+                    <div class="grid grid-cols-2">
+                        <label for="mail" class="font-semibold row-span-2">Email</label>
+                        <input type="email" id="signup-mail" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="signup-mail-error" class="text-red-500 text-sm"></div>
+                        <button id="signup-send-otp" class="bg-gradient-to-r from-amber-300 to-amber-500 hover:bg-amber-500 hidden text-sm px-3 py-1 w-24 rounded-xl mt-2 col-span-2">Send OTP</button>
+                    </div>
+                    <!-- OTP -->
+                    <div id="signup-otp-section" class="grid grid-cols-2 gap-2 mt-4 row-span-2 hidden">
+                        <label class="font-semibold row-span-2">Enter OTP</label>
+                        <div class="flex gap-[1px]">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none signup-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none signup-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none signup-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none signup-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none signup-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none signup-otp-input">
+                        </div>
+                        <div id="signup-otp-error" class="text-red-500 text-sm"></div>
+                        <button id="signup-verify-otp" class="bg-green-400 hover:bg-green-500 text-sm px-3 py-1 w-24 rounded-xl col-span-2">Verify OTP</button>
+                    </div>
+                    <!-- DOB -->
+                    <div class="grid grid-cols-2">
+                        <label for="dob" class="font-semibold row-span-2">Date of Birth</label>
+                        <input type="date" id="signup-dob" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="signup-dob-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Mobile -->
+                    <div class="grid grid-cols-2">
+                        <label for="mobile" class="font-semibold row-span-2">Mobile Number</label>
+                        <input type="tel" id="signup-mobile" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="signup-mobile-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Password -->
+                    <div class="grid grid-cols-2">
+                        <label for="password" class="font-semibold row-span-3">Password</label>
+                        <input type="password" id="signup-password" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="signup-pass-error" class="text-red-500 text-sm"></div>
+                        <div id="signup-strength" class="text-sm font-semibold mt-1"></div>
+                    </div>
+                    <!-- Confirm Password -->
+                    <div class="grid grid-cols-2">
+                        <label for="confirm-password" class="font-semibold row-span-2">Confirm Password</label>
+                        <input type="password" id="signup-confirm-password" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="signup-confirm-pass-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Signup Button -->
+                    <button id="signup-btn" type="submit" class="font-bold text-md p-2 sm:text-lg sm:px-4 sm:py-2 bg-gradient-to-r from-amber-300 to-amber-500 hover:bg-amber-500 rounded-3xl mx-auto block">Signup</button>
+                    <div class="text-center font-semibold">Already have an account? <span id="login-change" class="underline text-blue-600 cursor-pointer">Login</span></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forget Password Modal -->
+    <div id="forget-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
+        <div class="font-gabarito shadow-lg shadow-gray-600 w-full max-w-lg bg-[url('/images/login.jpg')] bg-cover bg-center rounded-2xl p-12 sm:p-6 relative">
+            <div class="relative max-w-md mx-auto rounded-3xl bg-white sm:m-6 p-6 sm:p-7">
+                <button id="close-forget-modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                <h1 class="font-bold text-3xl text-center mb-8">Forget Password</h1>
+                <form class="space-y-4 sm:space-y-6">
+                    <!-- Mail -->
+                    <div class="grid grid-cols-2">
+                        <label for="mail" class="font-semibold row-span-2">Mail</label>
+                        <input type="text" id="forget-mail" class="w-40 sm:w-48 focus:outline-none border-2 border-yellow-400 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="forget-mail-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <button id="forget-btn" type="submit" class="font-bold text-md p-2 sm:text-lg sm:px-4 sm:py-2 bg-gradient-to-r from-amber-300 to-amber-500 hover:bg-amber-500 rounded-3xl mx-auto block">Send Email</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div id="reset-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
+        <div class="font-gabarito shadow-lg shadow-gray-600 w-full max-w-lg bg-[url('/images/login.jpg')] bg-cover bg-center rounded-2xl p-12 sm:p-6 relative">
+            <div class="relative max-w-md mx-auto rounded-3xl bg-white sm:m-6 p-6 sm:p-7">
+                <button id="close-reset-modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                <h1 class="font-bold text-3xl text-center mb-8">Reset Password</h1>
+                <form class="space-y-4 sm:space-y-6">
+                    <!-- Mail -->
+                    <div class="grid grid-cols-2">
+                        <label for="mail" class="font-semibold row-span-2">Mail id</label>
+                        <input type="email" id="reset-mail" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="reset-mail-error" class="text-red-500 text-sm"></div>
+                        <button id="reset-send-otp" class="bg-gradient-to-r from-amber-300 to-amber-500 hover:bg-amber-500 text-sm px-3 py-1 w-24 rounded-xl mt-2 hidden col-span-2">Send OTP</button>
+                    </div>
+                    <!-- OTP -->
+                    <div id="reset-otp-section" class="grid grid-cols-2 gap-2 mt-4 row-span-2 hidden">
+                        <label class="font-semibold row-span-2">Enter OTP</label>
+                        <div class="flex gap-[1px]">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none reset-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none reset-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none reset-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none reset-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none reset-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none reset-otp-input">
+                        </div>
+                        <div id="reset-otp-error" class="text-red-500 text-sm"></div>
+                        <button id="reset-verify-otp" class="bg-green-400 hover:bg-green-500 text-sm px-3 py-1 w-24 rounded-xl col-span-2">Verify OTP</button>
+                    </div>
+                    <!-- Password -->
+                    <div class="grid grid-cols-2">
+                        <label for="password" class="font-semibold row-span-3">Password</label>
+                        <input type="password" id="reset-password" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="reset-pass-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Confirm Password -->
+                    <div class="grid grid-cols-2">
+                        <label for="reset-confirm-password" class="font-semibold row-span-3">Confirm Password</label>
+                        <input type="password" id="reset-confirm-password" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="reset-confirm-pass-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Reset Button -->
+                    <button id="reset-btn" type="submit" class="font-bold text-md px-3 py-1 bg-gradient-to-r from-amber-300 to-amber-500 hover:bg-amber-500 rounded-3xl mx-auto block">Reset</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="viewrooms.js"></script>
+    <script src="/auth/login.js"></script>
+    <script src="/auth/signup.js"></script>
+    <script src="/auth/forget_password.js"></script>
+    <script src="/auth/reset_password.js"></script>
+</body>
+</html>

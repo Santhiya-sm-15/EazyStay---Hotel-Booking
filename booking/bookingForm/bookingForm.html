@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Booking Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Calligraffitti&family=Gabarito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/images/logo.png" rel="icon">
+    <script>
+        tailwind.config={
+            theme: {
+                extend: {
+                    fontFamily: {
+                        berkshire: ['"Berkshire Swash"', 'cursive'],
+                        calli: ['"Calligraffitti"', 'cursive'],
+                        gabarito: ['"Gabarito"', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="flex items-center justify-center bg-gray-200">
+    <div id="login-message" class="fixed hidden top-4 right-4 mt-2 bg-green-400 font-semibold"></div>
+    <div class="font-gabarito shadow-lg shadow-gray-600 w-full my-24 mx-auto min-w-sm max-w-screen-lg bg-[url('/images/login.jpg')] bg-cover bg-center rounded-2xl p-12 sm:p-6">
+        <div class="relative max-w-md mx-auto rounded-3xl bg-white sm:m-6 p-6">
+            <a href="javascript:history.back()" class="absolute sm:left-8 sm:top-8 left-8 top-8 bg-gradient-to-r from-amber-300 to-amber-500 py-1 px-2 rounded-2xl font-semibold hover:underline">Back</a>
+            <h1 class="font-bold text-3xl text-center mb-6">Booking Form</h1>
+        <form class="space-y-4 sm:space-y-6">
+        <!--Name-->
+        <div class="grid grid-cols-2">
+          <label for="name" class="font-semibold row-span-2">Name</label>
+            <input type="text" id="name" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" disabled>
+            <div id="user-error" class="text-red-500 text-sm"></div>
+        </div>
+        <!--Mail-->
+        <div class="grid grid-cols-2">
+          <label for="mail" class="font-semibold row-span-2">Email</label>
+            <input type="email" id="mail" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" disabled>
+            <div id="mail-error" class="text-red-500 text-sm"></div>
+          <button id="send-otp" class="bg-gradient-to-r from-amber-300 to-amber-500 hover:bg-amber-500 text-sm px-3 py-1 w-24 rounded-xl mt-2 col-span-2">Send OTP</button>
+        </div>
+        <!--OTP-->
+        <div id="otp-section" class="grid grid-cols-2 gap-2 mt-4 row-span-2 hidden">
+          <label class="font-semibold row-span-2">Enter OTP</label>
+          <div class="flex gap-[1px]">
+            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none otp-input">
+            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none otp-input">
+            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none otp-input">
+            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none otp-input">
+            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none otp-input">
+            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none otp-input">
+          </div>
+          <div id="otp-error" class="text-red-500 text-sm"></div>
+          <button id="verify-otp" class="bg-green-400 hover:bg-green-500 text-sm px-3 py-1 w-24 rounded-xl col-span-2">Verify OTP</button>
+        </div>
+        <div class="grid grid-cols-2">
+          <label for="amount" class="font-semibold row-span-2">Amount</label>
+            <input type="number" id="amount" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" disabled>
+            <div id="mail-error" class="text-red-500 text-sm"></div>
+        </div>
+        <button id="pay-btn" type="submit" class="font-bold text-md px-4 py-2 sm:text-lg  bg-amber-500 hover:bg-yellow-500 rounded-3xl mx-auto block">Pay</button>
+      </form>
+    </div>
+
+    <script src="bookingForm.js"></script>
+</body>
+
+</html>

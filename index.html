@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EazyStay</title>
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Calligraffitti&family=Gabarito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/images/logo.png" rel="icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script>
+        tailwind.config={
+            theme: {
+                extend: {
+                    fontFamily: {
+                        berkshire: ['"Berkshire Swash"', 'cursive'],
+                        calli: ['"Calligraffitti"', 'cursive'],
+                        gabarito: ['"Gabarito"', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const faders = document.querySelectorAll(".fade-up");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                    } else {
+                        // remove when out of view, so it can replay next time
+                        entry.target.classList.remove("show");
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            faders.forEach(fader => observer.observe(fader));
+        });
+    </script>
+    <style>
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .fade-up.show {
+            animation: fadeUp 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="font-gabarito text-md md:text-base relative">
+    <div class="absolute inset-0 bg-[url('/images/gallery4.jpg')] bg-cover bg-center opacity-80 h-screen"></div>
+    <div id="home" class="relative z-10 flex flex-col h-screen motion-safe:animate-fadeInUp ">
+        <div class="fixed top-0 h-20 z-50 w-full flex flex-row gap-4 bg-white shadow-xl justify-between items-center p-2 transition-all duration-1000">
+            <div class="flex flex-row gap-2 p-4 items-center">
+                <div class="w-12 h-12 rounded-full border-2 border-yellow-400 bg-[url('/images/logo.png')] bg-cover bg-center"></div>
+                <div class="font-berkshire font-bold text-2xl">EazyStay</div>
+            </div>
+            <div>
+                <button id="hamburger-btn" class="p-4 space-y-1.5 md:hidden">
+                    <div class="w-6 h-0.5 bg-gray-700"></div>
+                    <div class="w-6 h-0.5 bg-gray-700"></div>
+                    <div class="w-6 h-0.5 bg-gray-700"></div>
+                </button>
+            </div>
+            <div class="md:flex-row md:gap-2 lg:gap-4 items-center hidden md:flex">
+                <div class="font-semibold">
+                    <a href="#home" class="flex items-center gap-2 rounded-lg transition-all duration-200 text-gray-700 hover:text-amber-600">
+                        <i class="fas fa-home"></i>
+                        <span class="font-medium">Home</span>
+                    </a>
+                </div>
+                <div class="font-semibold">
+                    <a href="./booking/viewrooms/viewrooms.html" class="flex items-center gap-2 rounded-lg transition-all duration-200 text-gray-700 hover:text-amber-600">
+                        <i class="fas fa-bed"></i>
+                        <span class="font-medium">View Rooms</span>
+                    </a>
+                </div>
+                <div id="nav-login" class="font-semibold p-2 bg-gradient-to-r from-amber-300 to-amber-500 rounded-2xl hover:scale-105 cursor-pointer">Login/Signup</div>
+                <div id="nav-user-dropdown" class="relative group hidden">
+                    <button id="nav-user-btn" class="flex items-center gap-2 bg-gradient-to-r from-amber-300 to-amber-500 p-1 rounded-2xl transition-all duration-300 shadow-lg hover:scale-105">
+                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <i class="fas fa-user text-sm"></i>
+                        </div>
+                        <span id="nav-username" class="font-semibold"></span>
+                        <i class="fas fa-chevron-down text-xs transition-transform duration-200" id="nav-dropdown-arrow"></i>
+                    </button>
+                    <div id="nav-user-menu" class="absolute right-0 hidden bg-white shadow-xl mt-2 rounded-xl p-2 z-50 w-48 border border-gray-200 animate-slide-down">
+                        <a id="nav-profile" class="flex items-center gap-3 hover:bg-gradient-to-r from-amber-100 to-amber-200 p-3 rounded-lg transition-all duration-200 text-gray-700 cursor-pointer">
+                            <i class="fas fa-user-circle text-amber-500"></i>
+                            <span class="font-medium">My Profile</span>
+                        </a>
+                        <a id="nav-my-bookings" class="flex hidden items-center gap-3 hover:bg-gradient-to-r from-amber-100 to-amber-200 p-3 rounded-lg transition-all duration-200 text-gray-700 cursor-pointer">
+                            <i class="fas fa-calendar-check text-amber-500"></i>
+                            <span class="font-medium">My Bookings</span>
+                        </a>
+                        <a id="nav-dashboard" class="flex hidden items-center gap-3 hover:bg-gradient-to-r from-amber-100 to-amber-200 p-3 rounded-lg transition-all duration-200 text-gray-700 cursor-pointer">
+                            <i class="fas fa-calendar-check text-amber-500"></i>
+                            <span class="font-medium">Dashboard</span>
+                        </a>
+                        <div class="border-t border-gray-200 my-2"></div>
+                        <button id="nav-logout-btn" class="w-full flex items-center gap-3 cursor-pointer hover:bg-gradient-to-r from-red-50 to-red-100 p-3 rounded-lg transition-all duration-200 text-gray-700 hover:text-red-600">
+                            <i class="fas fa-sign-out-alt text-red-500"></i>
+                            <span class="font-medium">Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="sidebar" class="fixed hidden right-0 top-0 flex flex-col gap-4 p-8 w-64 h-full bg-white shadow-lg z-20 md:hidden">
+                <div class="flex justify-end right-4 items-center"><button id="close-btn" class="text-gray-700 w-15 text-3xl font-bold">&times;</button></div>
+                <div class="flex flex-col gap-4 justify-between">
+                    <div id="side-user-section" class="hidden border-b border-gray-200 pb-4 mb-4">
+                        <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-amber-100 to-amber-200 rounded-xl">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-amber-300 to-amber-500 flex items-center justify-center text-white">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <div id="side-username" class="font-semibold text-gray-800"></div>
+                                <div class="text-sm text-gray-600">Welcome back!</div>
+                            </div>
+                        </div>
+                        <div class="mt-3 space-y-2">
+                            <a id="side-profile" class="flex items-center gap-3 p-2 text-gray-700 hover:bg-gradient-to-r from-amber-100 to-amber-200 rounded-lg transition-all">
+                                <i class="fas fa-user-circle text-amber-500"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a id="side-my-bookings" class="flex hidden items-center gap-3 p-2 text-gray-700 hover:bg-gradient-to-r from-amber-100 to-amber-200 rounded-lg transition-all">
+                                <i class="fas fa-calendar-check text-amber-500"></i>
+                                <span>My Bookings</span>
+                            </a>
+                            <a id="side-dashboard" class="flex hidden items-center gap-3 p-2 text-gray-700 hover:bg-gradient-to-r from-amber-100 to-amber-200 rounded-lg transition-all">
+                                <i class="fas fa-calendar-check text-amber-500"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            <button id="side-logout-btn" class="w-full flex items-center gap-3 p-2 text-gray-700 hover:bg-gradient-to-r from-red-50 to-red-100 rounded-lg transition-all">
+                                <i class="fas fa-sign-out-alt text-red-500"></i>
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="#home" class="flex items-center gap-3 hover:bg-gradient-to-r from-amber-50 to-amber-100 p-2 rounded-lg transition-all duration-200 text-gray-700 hover:text-amber-600">
+                            <i class="fas fa-home text-amber-500"></i>
+                            <span class="font-medium">Home</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="/booking/viewrooms/viewrooms.html" class="flex items-center gap-3 hover:bg-gradient-to-r from-amber-50 to-amber-100 p-2 rounded-lg transition-all duration-200 text-gray-700 hover:text-amber-600">
+                            <i class="fas fa-bed text-amber-500"></i>
+                            <span class="font-medium">View Rooms</span>
+                        </a>
+                    </div>
+                    <div id="side-login" class="font-semibold hover:scale-105 hover:bg-gradient-to-r from-amber-300 to-amber-500 rounded-2xl p-2 cursor-pointer"><span>Login/Signup</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="fade-up flex flex-col gap-8 items-center h-full justify-around mt-32">
+            <div class="justify-center flex flex-col items-center ">
+                <div class="font-berkshire font-semibold text-md md:text-lg bg-gradient-to-r from-amber-300 to-amber-500 p-2 rounded-2xl">EazyStay</div>
+                <div class="font-calli font-semibold text-md sm:text-2xl md:text-4xl mt-4 transition-transform duration-1000">Stay where comfort meets convenience</div>
+            </div>
+            <div class="relative inline-block flex flex-col gap-4 sm:flex-row justify-between text-xs md:text-base items-center gap-2 md:gap-4 lg:gap-8 rounded-3xl bg-gradient-to-r from-amber-300 to-amber-500 p-2">
+                <div class="flex flex-row gap-2 items-center">
+                    <div>Check-in</div>
+                    <input type="date" id="check-in" class="focus:outline-none px-2 rounded-xl border-2 bg-transparent border-white">
+                </div>
+                <div class="flex flex-row gap-2 items-center">
+                    <div>Check-out</div>
+                    <input type="date" id="check-out" class="focus:outline-none px-2 rounded-xl border-2 bg-transparent border-white">
+                </div>
+                <button id="guest-toggle">1 guest,1 room</button>
+                <!-- Dropdown Panel -->
+                <div id="guest-panel" class="absolute bottom-full right-2 w-48 sm:w-72 bg-white border rounded-xl shadow-lg p-4 hidden z-50">
+
+                    <!-- Room 1 -->
+                    <div id="add" class="space-y-4">
+                        <div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold">Room 1</span>
+                            </div>
+                            <!-- People -->
+                            <div class="flex gap-2 sm:justify-between items-center">
+                                <span>Person(s)</span>
+                                <div class="flex items-center gap-3">
+                                    <button class="decrement w-8 h-8 border rounded-full">-</button>
+                                    <span class="people-count">1</span>
+                                    <button class="increment w-8 h-8 border rounded-full">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="add-room-btn" class="mt-4 flex flex-row justify-between">
+                            <button id="add-room" class="text-red-500 font-semibold underline">+ Add rooms</button>
+                            <button id="remove-room" class="text-red-500 font-semibold underline">- Remove rooms</button>    
+                        </div>
+                    </div>
+                </div>
+               
+                <button id="book-btn" class="rounded-2xl bg-white p-2">Book Now</button>
+            </div>
+        </div>
+    </div>
+    <div id="about" class="fade-up scroll-mt-24 flex flex-col items-center gap-4 p-8">
+        <div class="font-bold text-2xl flex flex-row">
+            <div class="items-center bg-gradient-to-r from-amber-300 to-amber-500 py-2 px-4 rounded-3xl shadow-lg shadow-gray-600">About us</div>
+        </div>
+        <div class="flex flex-wrap justify-center gap-8 m-8">
+            <div class="flex flex-col gap-8 rounded-xl shadow-lg shadow-gray-600 p-8 w-full sm:w-80 md:w-92 hover:scale-105">
+                <div class="text-lg font-bold bg-gradient-to-r from-amber-300 to-amber-500 rounded-tl-2xl rounded-tr-2xl px-8 py-2 text-center">Intro</div>
+                <div class="text-sm sm:text-base">Welcome to EazyStay - your trusted partner in stress-free hotel bookings. We believe finding the perfect stay should be as simple as a few clicks. Our platform is built to give you easy access to a wide variety of hotels, from budget-friendly to luxury. With EazyStay, comfort, convenience, and reliability come first.</div>
+            </div>
+            <div class="flex flex-col gap-8 rounded-xl shadow-lg shadow-gray-600 p-8 w-full sm:w-80 md:w-92 hover:scale-105">
+                <div class="text-lg font-bold bg-gradient-to-r from-amber-300 to-amber-500 rounded-tl-2xl rounded-tr-2xl px-8 py-2 text-center">What Drives Us</div>
+                <div class="text-sm sm:text-base">We are inspired by the belief that travel should bring joy, not stress. That's why we've created a booking system that is simple, quick, and transparent. Our focus is on helping travelers save time and avoid confusion, so they can fully enjoy their journeys. What drives us is making travel effortless, affordable, and memorable for everyone.</div>
+            </div>
+            <div class="flex flex-col gap-8 rounded-xl shadow-lg shadow-gray-600 p-8 w-full sm:w-80 md:w-92 hover:scale-105">
+                <div class="text-lg font-bold bg-gradient-to-r from-amber-300 to-amber-500 rounded-tl-2xl rounded-tr-2xl px-8 py-2 text-center">Why Choose Us</div>
+                <div class="text-sm sm:text-base px-6">EazyStay is built with travelers in mind - offering instant booking, affordable pricing, and a smooth user experience. We ensure complete transparency with no hidden charges, so you can book with confidence.</div>
+            </div>
+        </div>
+    </div>
+    <div id="gallery" class="fade-up scroll-mt-24 flex flex-col p-8 items-center gap-8">
+        <div class="font-bold text-2xl flex flex-row">
+            <div class="items-center bg-gradient-to-r from-amber-300 to-amber-500 py-2 px-4 rounded-3xl shadow-lg shadow-gray-600">Gallery</div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 mx-auto">
+            <div><img src="images/gallery1.jfif" class="transition-transform duration-300 hover:scale-105 rounded-3xl shadow-md shadow-gray-600 w-64 h-48"></div>
+            <div><img src="images/gallery2.jfif" class="transition-transform duration-300 hover:scale-105 rounded-3xl shadow-md shadow-gray-600 w-64 h-48"></div>
+            <div><img src="images/gallery3.jpg" class="transition-transform duration-300 hover:scale-105 rounded-3xl shadow-md shadow-gray-600 w-64 h-48"></div>
+            <div><img src="images/gallery4.jpg" class="transition-transform duration-300 hover:scale-105 rounded-3xl shadow-md shadow-gray-600 w-64 h-48"></div>
+            <div><img src="images/gallery5.jpg" class="transition-transform duration-300 hover:scale-105 rounded-3xl shadow-md shadow-gray-600 w-64 h-48"></div>
+            <div><img src="images/gallery6.jpg" class="transition-transform duration-300 hover:scale-105 rounded-3xl shadow-md shadow-gray-600 w-64 h-48"></div>
+            <div><img src="images/gallery7.jpg" class="transition-transform duration-300 hover:scale-105 rounded-3xl shadow-md shadow-gray-600 w-64 h-48"></div>
+            <div><img src="images/gallery8.jpg" class="transition-transform duration-300 hover:scale-105 rounded-3xl shadow-md shadow-gray-600 w-64 h-48"></div>
+        </div>
+    </div>
+    <div id="facilities" class="fade-up scroll-mt-24 flex flex-col p-4 items-center justify-center gap-2">
+        <div class="font-bold text-2xl flex flex-row p-4">
+            <div class="items-center bg-gradient-to-r from-amber-300 to-amber-500 py-2 px-4 rounded-3xl shadow-lg shadow-gray-600">Facilities</div>
+        </div>
+        <div class="font-semibold text-sm md:text-md lg:text-base">At EazyStay, we believe in providing you with a comfortable, convenient, and enjoyable stay.</div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 mx-auto">
+            <div class="flex flex-col gap-2 justify-center rounded-2xl shadow-md shadow-gray-600 p-4 items-center hover:scale-105 transition-transform duration-300">
+                <img src="images/wifi.jpg" class="transition-transform duration-300 rounded-2xl shadow-md shadow-gray-600 w-48 h-36">
+                <div>Free High Speed Wi-fi</div>
+            </div>
+            <div class="flex flex-col gap-2 justify-center rounded-2xl shadow-md shadow-gray-600 p-4 items-center hover:scale-105 transition-transform duration-300">
+                <img src="images/bedroom.jpg" class="transition-transform duration-300 rounded-2xl shadow-md shadow-gray-600 w-48 h-36">
+                <div>Comfortable Rooms</div>
+            </div>
+            <div class="flex flex-col gap-2 justify-center rounded-2xl shadow-md shadow-gray-600 p-4 items-center hover:scale-105 transition-transform duration-300">
+                <img src="images/restaurant.jpg" class="transition-transform duration-300 rounded-2xl shadow-md shadow-gray-600 w-48 h-36">
+                <div>In-house Restaurant</div>
+            </div>
+            <div class="flex flex-col gap-2 justify-center rounded-2xl shadow-md shadow-gray-600 p-4 items-center hover:scale-105 transition-transform duration-300">
+                <img src="images/housekeeping.jpg" class="transition-transform duration-300 rounded-2xl shadow-md shadow-gray-600 w-48 h-36">
+                <div>24/7 Housekeeping</div>
+            </div>
+            <div class="flex flex-col gap-2 justify-center rounded-2xl shadow-md shadow-gray-600 p-4 items-center hover:scale-105 transition-transform duration-300">
+                <img src="images/parking.jpg" class="transition-transform duration-300 rounded-2xl shadow-md shadow-gray-600 w-48 h-36">
+                <div>Safe Parking Space</div>
+            </div>
+            <div class="flex flex-col gap-2 justify-center rounded-2xl shadow-md shadow-gray-600 p-4 items-center hover:scale-105 transition-transform duration-300">
+                <img src="images/hot water.jpg" class="transition-transform duration-300 rounded-2xl shadow-md shadow-gray-600 w-48 h-36">
+                <div>Hot Water</div>
+            </div>
+            <div class="flex flex-col gap-2 justify-center rounded-2xl shadow-md shadow-gray-600 p-4 items-center hover:scale-105 transition-transform duration-300">
+                <img src="images/backup.jfif" class="transition-transform duration-300 rounded-2xl shadow-md shadow-gray-600 w-48 h-36">
+                <div>Power Backup</div>
+            </div>
+            <div class="flex flex-col gap-2 justify-center rounded-2xl shadow-md shadow-gray-600 p-4 items-center hover:scale-105 transition-transform duration-300">
+                <img src="images/laundry.jfif" class="transition-transform duration-300 rounded-2xl shadow-md shadow-gray-600 w-48 h-36">
+                <div>Laundry Service</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback -->
+    <div id="feedback" class="fade-up scroll-mt-28 flex flex-col m-20 p-4 items-center gap-4">
+        <div class="font-bold text-2xl flex flex-row p-4">
+            <div class="items-center bg-gradient-to-r from-amber-300 to-amber-500 py-2 px-4 rounded-3xl shadow-lg shadow-gray-600">Feedback</div>
+        </div>
+        <div class="flex md:flex-row flex-col justify-center gap-4 m-4">
+            <div class="max-w-md sm:max-w-lg overflow-hidden relative border rounded-3xl shadow-lg">
+                <div class="absolute inset-0 bg-[url('/images/feedback.jpg')] bg-cover bg-center opacity-20"></div>
+                <div id="carousel1" class="flex transition-transform duration-1000 z-10">
+                    <!-- Slide 1 -->
+                    <div class="flex-none w-full p-8">
+                        <h2 class="text-3xl font-bold mb-4">Santhiya</h2>
+                        <p class="text-md sm:text-lg">EazyStay made my hotel booking experience so smooth and effortless. The website is super user-friendly, and I was able to compare multiple options quickly. The confirmation was instant, and I didn't have to worry about hidden charges. Definitely my go-to site for all future bookings!</p>
+                        <p class="text-xl sm:text-3xl text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></p>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="flex-none w-full p-8">
+                        <h2 class="text-3xl font-bold mb-4">Saranya</h2>
+                        <p class="text-md sm:text-lg">I really liked the wide range of hotels and budget-friendly options available on EazyStay. The filters made it easy to find exactly what I was looking for, though a little faster loading would make it even better. Overall, it saved me both time and money. I'd recommend it to anyone planning a trip!</p>
+                        <p class="text-xl sm:text-3xl text-yellow-400"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></p>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="flex-none w-full p-8">
+                        <h2 class="text-3xl font-bold mb-4">Dharshini</h2>
+                        <p class="text-md sm:text-lg">Booking through EazyStay was a pleasant surprise! The design is clean, and the process took less than a minute from search to confirmation. I also appreciated the transparent pricing with no last-minute surprises. It gave me confidence and peace of mind while planning my travel.</p>
+                        <p class="text-xl sm:text-3xl text-yellow-400"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></p>
+                    </div>
+                </div>
+            </div>
+            <div class="max-w-md sm:max-w-lg overflow-hidden relative border rounded-3xl shadow-lg">
+                <div class="absolute inset-0 bg-[url('/images/feedback.jpg')] bg-cover bg-center opacity-20"></div>
+                <div id="carousel2" class="flex transition-transform duration-1000 z-10">
+                    <!-- Slide 1 -->
+                    <div class="flex-none w-full p-8">
+                        <h2 class="text-3xl font-bold mb-4">Santhosh</h2>
+                        <p class="text-md sm:text-lg">EazyStay's customer support was extremely helpful when I had a last-minute issue with my booking. They responded quickly and resolved everything without any hassle. The platform is intuitive and reliable. Highly satisfied!</p>
+                        <p class="text-xl sm:text-3xl text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></p>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="flex-none w-full p-8">
+                        <h2 class="text-3xl font-bold mb-4">Sara</h2>
+                        <p class="text-md sm:text-lg">I found EazyStay very useful for business trips. The ability to filter hotels by amenities saved me a lot of time. The booking confirmations are prompt, and everything works as expected. A great service for frequent travelers.</p>
+                        <p class="text-xl sm:text-3xl text-yellow-400"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></p>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="flex-none w-full p-8">
+                        <h2 class="text-3xl font-bold mb-4">Mani</h2>
+                        <p class="text-md sm:text-lg">The variety of stay options on EazyStay is impressive, especially for budget travelers like me. The detailed hotel descriptions and customer reviews helped me pick the best place for my stay. Would definitely use it again!</p>
+                        <p class="text-xl sm:text-3xl text-yellow-400"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What Near Us -->
+    <div id="whatnearus" class="fade-up scroll-mt-24 flex flex-col p-4 items-center gap-4">
+        <div class="font-bold text-2xl flex flex-row p-4">
+            <div class="items-center bg-gradient-to-r from-amber-300 to-amber-500 py-2 px-4 rounded-3xl shadow-lg shadow-gray-600">What Near Us</div>
+        </div>
+        <div class="flex flex-col md:flex-row gap-4 p-8">
+            <div class="flex flex-row md:flex-col justify-around gap-4 p-4 rounded-xl shadow-md shadow-gray-600 hover:scale-105 transition-transform duration-300">
+                <img src="/images/park.jfif" class="sm:h-48 sm:w-48 h-32 w-32 rounded-2xl">
+                <div class="flex flex-col gap-4 justify-around md:justify-between">
+                    <div class="flex flex-col">
+                        <div class="font-semibold text-md">Gandhi Park</div>
+                        <div class="text-sm">0.5 km away</div>
+                    </div>
+                    <div class="sm:w-48">Perfect for Morning walks</div>
+                </div>
+            </div>
+            <div class="flex flex-row md:flex-col justify-around gap-4 p-4 rounded-xl shadow-md shadow-gray-600 hover:scale-105 transition-transform duration-300">
+                <div class="flex flex-col gap-4 justify-around md:justify-between">
+                    <div class="flex flex-col">
+                        <div class="font-semibold text-md">Brookefields Mall</div>
+                        <div class="text-sm">4.5 km away</div>
+                    </div>
+                    <div class="sm:w-48">Popular for brand and entertainment</div>
+                </div>
+                <img src="/images/mall.jfif" class="sm:h-48 sm:w-48 h-32 w-32 rounded-2xl">
+            </div>
+            <div class="flex flex-row md:flex-col justify-around gap-4 p-4 rounded-xl shadow-md shadow-gray-600 hover:scale-105 transition-transform duration-300">
+                <img src="/images/food street.jfif" class="sm:h-48 sm:w-48 h-32 w-32 rounded-2xl">
+                <div class="flex flex-col gap-4 justify-around md:justify-between">
+                    <div class="flex flex-col">
+                        <div class="font-semibold  text-md">Food Streets</div>
+                        <div class="text-sm">1.5 km away</div>
+                    </div>
+                    <div class="sm:w-48">Tasty local snacks till late</div>
+                </div>
+            </div>
+            <div class="flex flex-row md:flex-col justify-around gap-4 p-4 rounded-xl shadow-md shadow-gray-600 hover:scale-105 transition-transform duration-300">
+                <div class="flex flex-col gap-4 justify-around md:justify-between">
+                    <div class="flex flex-col">
+                        <div class="font-semibold text-md">Marudhamalai</div>
+                        <div class="text-sm">10 km away</div>
+                    </div>
+                    <div class="sm:w-48">A Journey of Devotion</div>
+                </div>
+                <img src="/images/marudhamalai.jfif" class="sm:h-48 sm:w-48 h-32 w-32 rounded-2xl">
+            </div>
+            <div class="flex flex-row md:flex-col justify-around gap-4 p-4 rounded-xl shadow-md shadow-gray-600 hover:scale-105 transition-transform duration-300">
+                <img src="/images/bus stop.jfif" class="sm:h-48 sm:w-48 h-32 w-32 rounded-2xl">
+                <div class="flex flex-col gap-4 justify-around md:justify-between">
+                    <div class="flex flex-col">
+                        <div class="font-semibold text-md">Bus stop</div>
+                        <div class="text-sm">100 m away</div>
+                    </div>
+                    <div class="sm:w-48">Easy access to citywide bus routes</div>
+                </div>
+            </div>  
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <div id="contact" class="fade-up scroll-mt-16 flex flex-col mx-auto p-4 items-center gap-4">
+        <div class="font-bold text-2xl flex flex-row p-4">
+            <div class="items-center bg-gradient-to-r from-amber-300 to-amber-500 py-2 px-4 rounded-3xl shadow-lg shadow-gray-600">Contact Us</div>
+        </div>
+        <div class="font-semibold text-sm md:text-md lg:text-base">We'd love to help for you</div>
+        <div class="flex flex-col  sm:flex-row rounded-2xl shadow-md shadow-gray-600 gap-4 border-r-2 ">
+            <div class="p-4">
+                <div class="font-berkshire font-semibold bg-gradient-to-r from-amber-300 to-amber-500 mx-4 w-24 p-2 text-center justify-center rounded-2xl">EazyStay</div>
+                <div class="flex flex-row gap-8 p-4">
+                    <div class="flex flex-col gap-12">
+                        <div>
+                            <div class="font-semibold">Location</div>
+                            <div>123,Main Road<br>R.S. puram,<br>Coimbatore</div>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Mail id</div>
+                            <div>eazystay@gmail.com</div>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Phone</div>
+                            <div>+91 98765 43210</div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <div class="font-semibold">Map</div>
+                        <div class="h-64 w-64 rounded-lg shadow z-0"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d489.5193303730437!2d76.99899001434393!3d11.02702188194503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba85825523a6527%3A0x76d40921f7b8b27d!2sThiru%20Venkata%20Swamy%20St%2C%20Coimbatore%2C%20Tamil%20Nadu%20641004!5e0!3m2!1sen!2sin!4v1758447762616!5m2!1sen!2sin" class="h-64 w-64 rounded-xl" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Send us a Message</h3>                  
+                <form id="contactForm" class="space-y-2 items-center w-80 gap-2">
+                    <div>
+                        <label for="name" class="block text-sm font-semibold text-gray-700">Name *</label>
+                        <input type="text" id="name" name="name" required class="w-80 p-2 border-2 border-gray-300 rounded-xl focus:border-amber-500 focus:outline-none" placeholder="Enter your full name" autocomplete="off">
+                        <span id="name-error" class="text-red-500 text-sm"></span>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-semibold text-gray-700">Email ID *</label>
+                        <input type="email" id="email" name="email" required class="w-80 p-2 border-2 border-gray-300 rounded-xl focus:border-amber-500 focus:outline-none transition-colors" placeholder="Enter your email address" autocomplete="off">
+                        <span id="email-error" class="text-red-500 text-sm"></span>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="message" class="block text-sm font-semibold text-gray-700">Message *</label>
+                        <textarea id="message" name="message" rows="2" required class="w-80 p-2 border-2 border-gray-300 rounded-xl focus:border-amber-500 focus:outline-none transition-colors resize-none" placeholder="Enter your message here..." autocomplete="off"></textarea>
+                        <span id="message-error" class="text-red-500 text-sm"></span>
+                    </div>
+                    <button type="submit" class="w-80 col-span-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold p-2 rounded-xl hover:from-amber-600 hover:to-amber-700 transition-all duration-300 transform hover:scale-105">Submit</button>
+                </form>
+            </div>
+            <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+                <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center">
+                    <div class="w-16 h-16 bg-green-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Message Sent!</h3>
+                    <p class="text-gray-600 mb-6">Thank you for contacting us. We'll get back to you soon.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="scroll-top-bottom" class="hidden fixed bottom-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-r from-amber-300 to-amber-500 text-2xl font-bold shadow-lg cursor-pointer"><i class="fa fa-angle-up"></i></div>
+    <!-- Footer -->
+    <footer id="footer" class="w-full bg-gradient-to-r from-amber-300 to-amber-500 text-gray-900 mt-8">
+        <div class="mx-auto px-2 sm:px-6 py-6 grid grid-cols-2 gap-4 sm:gap-8 justify-between">
+            <!-- Brand & About -->
+            <div>
+                <h2 class="text-2xl font-bold mb-4">EazyStay</h2>
+                <p class="text-sm mb-4">Your trusted partner for hassle-free bookings and comfortable stays. Explore top facilities and discover what's near you.</p>
+                <div class="flex gap-4 text-lg">
+                    <a href="https://www.facebook.com" class="hover:text-blue-700"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com" class="hover:text-pink-600"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.whatsapp.com" class="hover:text-green-600"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="mailto:eazystay@gmail.com" class="hover:text-red-600"><i class="fa fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="flex flex-row gap-2 sm:gap-16 justify-end sm:mr-16">
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#about" class="hover:underline">About Us</a></li>
+                        <li><a href="#facilities" class="hover:underline">Facilities</a></li>
+                        <li><a href="#whatnearus" class="hover:underline">What's Near Us</a></li>
+                        <li><a href="#contact" class="hover:underline">Contact Us</a></li>
+                    </ul>
+                </div>
+                <!-- Support -->
+                <div>
+                    <h3 class="text-lg font-semibold">Support</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><span id="termsmodalbtn" class="cursor-pointer hover:underline">Terms & Conditions</span></li>
+                        <li><span id="cancelmodalbtn" class="cursor-pointer hover:underline">Cancellation Policy</span></li>
+                        <li><a href="#faq" class="hover:underline">FAQs</a></li>
+                        <li><a href="#support" class="hover:underline">Help & Support</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Bottom Bar -->
+        <div class="border-t border-amber-400 mt-2 py-4 px-6 flex flex-col sm:flex-row justify-center items-center text-sm">
+            <div>&copy; 2025 EazyStay | All Rights Reserved</div>
+        </div>
+    </footer>
+    <!-- Terms Modal -->
+    <div id="termsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center z-50 justify-center">
+        <div class="bg-white p-6 rounded-2xl shadow-lg w-96 relative">
+            <h2 class="text-xl font-bold mb-4">Terms & Conditions</h2>
+            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                <li><b>Check-in / Check-out:</b> Check-in at 12:00 PM, Check-out at 11:00 AM. Early check-in/late check-out subject to availability and extra charges.</li>
+                <li><b>Booking Confirmation:</b> Reservations are confirmed only upon full/partial payment. Valid government ID required at check-in.</li>
+                <li><b>Room Usage:</b> Rooms are for registered guests only. Visitors may not stay overnight. Damages to property will be charged to the guest.</li>
+                <li><b>Prohibited Activities:</b> Smoking in non-smoking rooms and illegal activities are strictly prohibited.</li>
+                <li><b>Payment:</b> Payments via cash, card, or digital wallets. Additional charges (room service, minibar, etc.) must be cleared at check-out.</li>
+                <li><b>Liability:</b> Hotel is not responsible for valuables left in rooms. Guests are advised to use the in-room safe.</li>
+            </ul>
+            <button class="closeTerms absolute top-2 right-2 text-lg text-gray-500 hover:text-black">&times;</button>
+        </div>
+    </div>
+    <!-- Cancellation Modal -->
+    <div id="cancelModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center z-50 justify-center">
+        <div class="bg-white p-6 rounded-2xl shadow-lg w-96 relative">
+            <h2 class="text-xl font-bold mb-4">Cancellation Policy</h2>
+            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                <li><b>Before 48 hours of check-in:</b> 100% refund</li>
+                <li><b>Before 24 hours of check-in:</b> 80% refund</li>
+                <li><b>Less than 24 hours of check-in:</b> No refund</li>
+                <li><b>No-show (failure to arrive):</b> No refund</li>
+            </ul>
+            <button class="closeCancel absolute top-2 text-lg right-2 text-gray-500 hover:text-black">&times;</button>
+        </div>
+    </div>
+    <!-- Login Modal -->
+    <div id="login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
+        <div class="font-gabarito shadow-lg shadow-gray-600 w-full max-w-lg bg-[url('/images/login.jpg')] bg-cover bg-center rounded-2xl p-12 sm:p-6 relative">
+            <div class="relative max-w-md mx-auto rounded-3xl bg-white sm:m-6 p-6 sm:p-7">
+                <button id="close-login-modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                <h1 class="font-bold text-3xl text-center mb-8">Login</h1>
+                <form class="space-y-4 sm:space-y-6">
+                    <!-- Mail -->
+                    <div class="grid grid-cols-2">
+                        <label for="username" class="font-semibold row-span-2">Mail id</label>
+                        <input type="text" id="login-mail" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="login-mail-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Password -->
+                    <div class="grid grid-cols-2">
+                        <label for="password" class="font-semibold row-span-3">Password</label>
+                        <input type="password" id="login-password" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="login-pass-error" class="text-red-500 text-sm"></div>
+                        <div id="login-strength" class="text-sm font-semibold mt-1"></div>
+                    </div>
+                    <!-- Login Button -->
+                    <button id="login-btn" type="submit" class="font-bold text-md p-2 sm:text-lg sm:px-4 bg-gradient-to-r from-amber-300 to-amber-500 hover:bg-amber-500 rounded-3xl mx-auto block">Login</button>
+                </form>
+                <div class="text-center font-semibold">Don't have an account? <span id="signup-change" class="underline text-blue-600 cursor-pointer">Signup</span></div>
+                <div class="my-2 flex flex-row justify-between">
+                    <span id="forget-change" class="underline font-semibold cursor-pointer">Forget Password</span>
+                    <span id="reset-change" class="underline font-semibold cursor-pointer">Reset Password</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Signup Modal -->
+    <div id="signup-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
+        <div class="font-gabarito shadow-lg shadow-gray-600 w-full max-w-lg bg-[url('/images/login.jpg')] bg-cover bg-center rounded-2xl p-12 sm:p-6 relative">
+            <div class="relative max-w-md mx-auto rounded-3xl bg-white sm:m-6 p-6 sm:p-7">
+                <button id="close-signup-modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                <h1 class="font-bold text-3xl text-center mb-8">Signup</h1>
+                <form class="space-y-4">
+                    <!-- Username -->
+                    <div class="grid grid-cols-2">
+                        <label for="username" class="font-semibold row-span-2">Username</label>
+                        <input type="text" id="signup-username" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="signup-user-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Email -->
+                    <div class="grid grid-cols-2">
+                        <label for="mail" class="font-semibold row-span-2">Email</label>
+                        <input type="email" id="signup-mail" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="signup-mail-error" class="text-red-500 text-sm"></div>
+                        <button id="signup-send-otp" class="bg-gradient-to-r from-amber-300 to-amber-500 hover:bg-amber-500 hidden text-sm px-3 py-1 w-24 rounded-xl mt-2 col-span-2">Send OTP</button>
+                    </div>
+                    <!-- OTP -->
+                    <div id="signup-otp-section" class="grid grid-cols-2 gap-2 mt-4 row-span-2 hidden">
+                        <label class="font-semibold row-span-2">Enter OTP</label>
+                        <div class="flex gap-[1px]">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none signup-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none signup-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none signup-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none signup-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none signup-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none signup-otp-input">
+                        </div>
+                        <div id="signup-otp-error" class="text-red-500 text-sm"></div>
+                        <button id="signup-verify-otp" class="bg-green-400 hover:bg-green-500 text-sm px-3 py-1 w-24 rounded-xl col-span-2">Verify OTP</button>
+                    </div>
+                    <!-- DOB -->
+                    <div class="grid grid-cols-2">
+                        <label for="dob" class="font-semibold row-span-2">Date of Birth</label>
+                        <input type="date" id="signup-dob" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="signup-dob-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Mobile -->
+                    <div class="grid grid-cols-2">
+                        <label for="mobile" class="font-semibold row-span-2">Mobile Number</label>
+                        <input type="tel" id="signup-mobile" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="signup-mobile-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Password -->
+                    <div class="grid grid-cols-2">
+                        <label for="password" class="font-semibold row-span-3">Password</label>
+                        <input type="password" id="signup-password" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="signup-pass-error" class="text-red-500 text-sm"></div>
+                        <div id="signup-strength" class="text-sm font-semibold mt-1"></div>
+                    </div>
+                    <!-- Confirm Password -->
+                    <div class="grid grid-cols-2">
+                        <label for="confirm-password" class="font-semibold row-span-2">Confirm Password</label>
+                        <input type="password" id="signup-confirm-password" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="signup-confirm-pass-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Signup Button -->
+                    <button id="signup-btn" type="submit" class="font-bold text-md p-2 sm:text-lg sm:px-4 sm:py-2 bg-gradient-to-r from-amber-300 to-amber-500 hover:bg-amber-500 rounded-3xl mx-auto block">Signup</button>
+                    <div class="text-center font-semibold">Already have an account? <span id="login-change" class="underline text-blue-600 cursor-pointer">Login</span></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Forget Password Modal -->
+    <div id="forget-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
+        <div class="font-gabarito shadow-lg shadow-gray-600 w-full max-w-lg bg-[url('/images/login.jpg')] bg-cover bg-center rounded-2xl p-12 sm:p-6 relative">
+            <div class="relative max-w-md mx-auto rounded-3xl bg-white sm:m-6 p-6 sm:p-7">
+                <button id="close-forget-modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                <h1 class="font-bold text-3xl text-center mb-8">Forget Password</h1>
+                <form class="space-y-4 sm:space-y-6">
+                    <!-- Mail -->
+                    <div class="grid grid-cols-2">
+                        <label for="mail" class="font-semibold row-span-2">Mail</label>
+                        <input type="text" id="forget-mail" class="w-40 sm:w-48 focus:outline-none border-2 border-yellow-400 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="forget-mail-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <button id="forget-btn" type="submit" class="font-bold text-md p-2 sm:text-lg sm:px-4 sm:py-2 bg-gradient-to-r from-amber-300 to-amber-500 hover:bg-amber-500 rounded-3xl mx-auto block">Send Email</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Reset Password Modal -->
+    <div id="reset-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
+        <div class="font-gabarito shadow-lg shadow-gray-600 w-full max-w-lg bg-[url('/images/login.jpg')] bg-cover bg-center rounded-2xl p-12 sm:p-6 relative">
+            <div class="relative max-w-md mx-auto rounded-3xl bg-white sm:m-6 p-6 sm:p-7">
+                <button id="close-reset-modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                <h1 class="font-bold text-3xl text-center mb-8">Reset Password</h1>
+                <form class="space-y-4 sm:space-y-6">
+                    <!-- Mail -->
+                    <div class="grid grid-cols-2">
+                        <label for="mail" class="font-semibold row-span-2">Mail id</label>
+                        <input type="email" id="reset-mail" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="reset-mail-error" class="text-red-500 text-sm"></div>
+                        <button id="reset-send-otp" class="bg-gradient-to-r from-amber-300 to-amber-500 hover:bg-amber-500 text-sm px-3 py-1 w-24 rounded-xl mt-2 hidden col-span-2">Send OTP</button>
+                    </div>
+                    <!-- OTP -->
+                    <div id="reset-otp-section" class="grid grid-cols-2 gap-2 mt-4 row-span-2 hidden">
+                        <label class="font-semibold row-span-2">Enter OTP</label>
+                        <div class="flex gap-[1px]">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none reset-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none reset-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none reset-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none reset-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none reset-otp-input">
+                            <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-amber-500 rounded-lg focus:outline-none reset-otp-input">
+                        </div>
+                        <div id="reset-otp-error" class="text-red-500 text-sm"></div>
+                        <button id="reset-verify-otp" class="bg-green-400 hover:bg-green-500 text-sm px-3 py-1 w-24 rounded-xl col-span-2">Verify OTP</button>
+                    </div>
+                    <!-- Password -->
+                    <div class="grid grid-cols-2">
+                        <label for="password" class="font-semibold row-span-3">Password</label>
+                        <input type="password" id="reset-password" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="reset-pass-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Confirm Password -->
+                    <div class="grid grid-cols-2">
+                        <label for="reset-confirm-password" class="font-semibold row-span-3">Confirm Password</label>
+                        <input type="password" id="reset-confirm-password" class="w-40 sm:w-48 focus:outline-none border-2 border-amber-500 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="reset-confirm-pass-error" class="text-red-500 text-sm"></div>
+                    </div>
+                    <!-- Reset Button -->
+                    <button id="reset-btn" type="submit" class="font-bold text-md px-3 py-1 bg-gradient-to-r from-amber-300 to-amber-500 hover:bg-amber-500 rounded-3xl mx-auto block">Reset</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="index.js"></script>
+    <script src="/auth/login.js"></script>
+    <script src="/auth/signup.js"></script>
+    <script src="/auth/forget_password.js"></script>
+    <script src="/auth/reset_password.js"></script>
+</body>
+</html>

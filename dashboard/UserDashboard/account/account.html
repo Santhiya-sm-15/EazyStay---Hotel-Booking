@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Calligraffitti&family=Gabarito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/images/logo.png" rel="icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script>
+        tailwind.config={
+            theme: {
+                extend: {
+                    fontFamily: {
+                        berkshire: ['"Berkshire Swash"', 'cursive'],
+                        calli: ['"Calligraffitti"', 'cursive'],
+                        gabarito: ['"Gabarito"', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-gabarito text-md md:text-base">
+    <div class="flex flex-col h-screen">
+        <div class="fixed top-0 h-20 z-50 w-full flex flex-row gap-4 bg-white shadow-xl justify-between items-center p-2 transition-all duration-1000">
+            <div class="flex flex-row gap-2 p-4 items-center">
+                <div class="w-12 h-12 rounded-full border-2 border-yellow-400 bg-[url('/images/logo.png')] bg-cover bg-center"></div>
+                <div class="font-berkshire font-bold text-2xl">EazyStay</div>
+            </div>
+            <div>
+                <button id="hamburger-btn" class="p-4 space-y-1.5 md:hidden">
+                    <div class="w-6 h-0.5 bg-gray-700"></div>
+                    <div class="w-6 h-0.5 bg-gray-700"></div>
+                    <div class="w-6 h-0.5 bg-gray-700"></div>
+                </button>
+            </div>
+            <div class="md:flex-row md:gap-2 lg:gap-4 items-center hidden md:flex">
+                <div class="font-semibold">
+                    <a href="#home" class="flex items-center gap-2 rounded-lg transition-all duration-200 text-gray-700 hover:text-amber-600">
+                        <i class="fas fa-home"></i>
+                        <span class="font-medium">Home</span>
+                    </a>
+                </div>
+                <div id="nav-login" class="font-semibold p-2 bg-gradient-to-r from-amber-300 to-amber-500 rounded-2xl hover:scale-105 cursor-pointer">Login/Signup</div>
+                <!-- User Dropdown (shown when logged in) -->
+                <div id="nav-user-dropdown" class="relative group hidden">
+                    <button id="nav-user-btn" class="flex items-center gap-2 bg-gradient-to-r from-amber-300 to-amber-500 p-1 rounded-2xl transition-all duration-300 shadow-lg hover:scale-105">
+                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <i class="fas fa-user text-sm"></i>
+                        </div>
+                        <span id="nav-username" class="font-semibold"></span>
+                        <i class="fas fa-chevron-down text-xs transition-transform duration-200" id="nav-dropdown-arrow"></i>
+                    </button>
+                    <div id="nav-user-menu" class="absolute right-0 hidden bg-white shadow-xl mt-2 rounded-xl p-2 z-50 w-48 border border-gray-200 animate-slide-down">
+                        <a id="profile" class="flex items-center gap-3 hover:bg-gradient-to-r from-amber-100 to-amber-200 p-3 rounded-lg transition-all duration-200 text-gray-700 cursor-pointer">
+                            <i class="fas fa-user-circle text-amber-500"></i>
+                            <span class="font-medium">My Profile</span>
+                        </a>
+                        <a id="my-bookings" class="flex items-center gap-3 hover:bg-gradient-to-r from-amber-100 to-amber-200 p-3 rounded-lg transition-all duration-200 text-gray-700 cursor-pointer">
+                            <i class="fas fa-calendar-check text-amber-500"></i>
+                            <span class="font-medium">My Bookings</span>
+                        </a>
+                        <div class="border-t border-gray-200 my-2"></div>
+                        <button id="nav-logout-btn" class="w-full flex items-center gap-3 cursor-pointer hover:bg-gradient-to-r from-red-50 to-red-100 p-3 rounded-lg transition-all duration-200 text-gray-700 hover:text-red-600">
+                            <i class="fas fa-sign-out-alt text-red-500"></i>
+                            <span class="font-medium">Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="sidebar" class="fixed hidden right-0 top-0 flex flex-col gap-4 p-8 w-72 h-full bg-white shadow-lg md:hidden">
+                <div class="flex justify-end right-4 items-center"><button id="close-btn" class="text-gray-700 w-15 text-3xl font-bold">&times;</button></div>
+                <div class="flex flex-col gap-2 sm:gap-4 justify-between">
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="/index.html#Home">Home</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../profile/profile.html">Personal Info</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../bookings/bookings.html">Bookings</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../account/account.html">Account</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><button id="nav-logout">Logout</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-row w-full h-full">
+            <div class="md:flex md:flex-col w-64 gap-2 p-6 justify-center bg-gradient-to-r from-amber-300 to-amber-500 hidden">
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../profile/profile.html">Personal Info</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../bookings/bookings.html">Bookings</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../account/account.html">Account</a></div>
+                <div class="transition-transform duration-300 rounded-2xl hover:bg-white hover:scale-105"><button id="side-logout" class="font-semibold p-2">Logout</button></div>
+            </div>
+            <!-- Main Content -->
+            <div class="flex items-center justify-center  w-full">
+            <div class="max-w-lg rounded-xl shadow-lg p-6 mt-10">
+                <h1 class="text-2xl font-bold mb-6 text-center">My Account</h1>
+
+                <!-- Reset Password Button -->
+                <button id="resetPasswordBtn" class="w-full mb-4 bg-gradient-to-r from-amber-300 to-amber-500 py-2 rounded-xl hover:from-amber-400 hover:to-amber-600">
+                    Reset Password
+                </button>
+
+                <!-- Account Delete Request Button -->
+                <button id="deleteAccountBtn" class="w-full bg-gradient-to-r from-red-400 to-red-600 text-white py-2 rounded-xl hover:from-red-500 hover:to-red-700">
+                    Request Account Deletion
+                </button>
+                </div>
+
+                <!-- Reset Password Modal -->
+                <div id="resetModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
+                <div class="font-gabarito shadow-lg shadow-gray-600 w-full max-w-lg bg-[url('/images/login.jpg')] bg-cover bg-center rounded-2xl p-12 sm:p-6 relative">
+                    <div class="relative max-w-md mx-auto rounded-3xl bg-white sm:m-6 p-6 sm:p-7">
+                    <button id="closeResetModal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                    <h1 class="font-bold text-3xl text-center mb-8">Reset Password</h1>
+
+                    <form id="resetForm" class="space-y-4 sm:space-y-6">
+                        <!-- Username -->
+                        <div class="grid grid-cols-2">
+                        <label for="username" class="font-semibold row-span-2">Username</label>
+                        <input type="text" id="username" class="w-40 sm:w-48 focus:outline-none border-2 border-yellow-400 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="user-error" class="text-red-500 text-sm"></div>
+                        </div>
+
+                        <!-- Mail -->
+                        <div class="grid grid-cols-2">
+                        <label for="mail" class="font-semibold row-span-2">Mail id</label>
+                        <input type="email" id="mail" class="w-40 sm:w-48 focus:outline-none border-2 border-yellow-400 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="mail-error" class="text-red-500 text-sm"></div>
+
+                        <button id="send-otp" type="button" class="bg-yellow-400 hover:bg-yellow-500 text-sm px-2 py-1 w-20 rounded-xl mt-2 col-span-2">Send OTP</button>
+                        </div>
+
+                        <!-- OTP -->
+                        <div id="otp-section" class="grid grid-cols-2 gap-2 mt-4 row-span-2 hidden">
+                        <label class="font-semibold row-span-2">Enter OTP</label>
+                        <div class="flex gap-[1px]">
+                            <input type="text" maxlength="1" class="otp-input w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-yellow-400 rounded-lg focus:outline-none">
+                            <input type="text" maxlength="1" class="otp-input w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-yellow-400 rounded-lg focus:outline-none">
+                            <input type="text" maxlength="1" class="otp-input w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-yellow-400 rounded-lg focus:outline-none">
+                            <input type="text" maxlength="1" class="otp-input w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-yellow-400 rounded-lg focus:outline-none">
+                            <input type="text" maxlength="1" class="otp-input w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-yellow-400 rounded-lg focus:outline-none">
+                            <input type="text" maxlength="1" class="otp-input w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-yellow-400 rounded-lg focus:outline-none">
+                        </div>
+                        <div id="otp-error" class="text-red-500 text-sm"></div>
+                        <button id="verify-otp" type="button" class="bg-green-400 hover:bg-green-500 text-sm px-2 py-1 w-24 rounded-xl col-span-2">Verify OTP</button>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="grid grid-cols-2">
+                        <label for="password" class="font-semibold row-span-3">Password</label>
+                        <input type="password" id="password" class="w-40 sm:w-48 focus:outline-none border-2 border-yellow-400 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="pass-error" class="text-red-500 text-sm"></div>
+                        <div id="strength" class="text-sm font-semibold mt-1"></div>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="grid grid-cols-2">
+                        <label for="confirm-password" class="font-semibold row-span-3">Confirm Password</label>
+                        <input type="password" id="confirm-password" class="w-40 sm:w-48 focus:outline-none border-2 border-yellow-400 rounded-2xl px-2" autocomplete="off" required>
+                        <div id="confirm-pass-error" class="text-red-500 text-sm"></div>
+                        </div>
+
+                        <!-- Reset Button -->
+                        <button id="reset-btn" type="submit" class="font-bold text-md p-2 sm:text-lg sm:px-4 sm:py-2 bg-yellow-400 hover:bg-yellow-500 rounded-3xl mx-auto block">Reset</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script src="account.js"></script>
+</body>
+</html>

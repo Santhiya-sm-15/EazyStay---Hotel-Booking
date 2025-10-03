@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Calligraffitti&family=Gabarito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/images/logo1.png" rel="icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script>
+        tailwind.config={
+            theme: {
+                extend: {
+                    fontFamily: {
+                        berkshire: ['"Berkshire Swash"', 'cursive'],
+                        calli: ['"Calligraffitti"', 'cursive'],
+                        gabarito: ['"Gabarito"', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-gabarito text-md md:text-base h-screen">
+    <div class="flex flex-col">
+        <div class="fixed top-0 h-20 z-50 w-full flex flex-row gap-4 bg-white shadow-xl justify-between items-center p-2 transition-all duration-1000">
+            <div class="flex flex-row gap-2 p-4 items-center">
+                <div class="w-12 h-12 rounded-full border-2 border-yellow-400 bg-[url('/images/logo.png')] bg-cover bg-center"></div>
+                <div class="font-berkshire font-bold text-2xl">EazyStay</div>
+            </div>
+            <div>
+                <button id="hamburger-btn" class="p-4 space-y-1.5 md:hidden">
+                    <div class="w-6 h-0.5 bg-gray-700"></div>
+                    <div class="w-6 h-0.5 bg-gray-700"></div>
+                    <div class="w-6 h-0.5 bg-gray-700"></div>
+                </button>
+            </div>
+            <div class="md:flex-row md:gap-2 lg:gap-4 items-center hidden md:flex">
+                <div class="font-semibold">
+                    <a href="#home" class="flex items-center gap-2 rounded-lg transition-all duration-200 text-gray-700 hover:text-amber-600">
+                        <i class="fas fa-home"></i>
+                        <span class="font-medium">Home</span>
+                    </a>
+                </div>
+                <div id="nav-login" class="font-semibold p-2 bg-gradient-to-r from-amber-300 to-amber-500 rounded-2xl hover:scale-105 cursor-pointer">Login/Signup</div>
+                <!-- User Dropdown (shown when logged in) -->
+                <div id="nav-user-dropdown" class="relative group hidden">
+                    <button id="nav-user-btn" class="flex items-center gap-2 bg-gradient-to-r from-amber-300 to-amber-500 p-1 rounded-2xl transition-all duration-300 shadow-lg hover:scale-105">
+                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <i class="fas fa-user text-sm"></i>
+                        </div>
+                        <span id="nav-username" class="font-semibold"></span>
+                        <i class="fas fa-chevron-down text-xs transition-transform duration-200" id="nav-dropdown-arrow"></i>
+                    </button>
+                    <div id="nav-user-menu" class="absolute right-0 hidden bg-white shadow-xl mt-2 rounded-xl p-2 z-50 w-48 border border-gray-200 animate-slide-down">
+                        <a id="profile" class="flex items-center gap-3 hover:bg-gradient-to-r from-amber-100 to-amber-200 p-3 rounded-lg transition-all duration-200 text-gray-700 cursor-pointer">
+                            <i class="fas fa-user-circle text-amber-500"></i>
+                            <span class="font-medium">My Profile</span>
+                        </a>
+                        <a id="dashboard" class="flex items-center gap-3 hover:bg-gradient-to-r from-amber-100 to-amber-200 p-3 rounded-lg transition-all duration-200 text-gray-700 cursor-pointer">
+                            <i class="fas fa-calendar-check text-amber-500"></i>
+                            <span class="font-medium">Dashboard</span>
+                        </a>
+                        <div class="border-t border-gray-200 my-2"></div>
+                        <button id="nav-logout-btn" class="w-full flex items-center gap-3 cursor-pointer hover:bg-gradient-to-r from-red-50 to-red-100 p-3 rounded-lg transition-all duration-200 text-gray-700 hover:text-red-600">
+                            <i class="fas fa-sign-out-alt text-red-500"></i>
+                            <span class="font-medium">Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sidebar" class="fixed hidden right-0 top-0 flex flex-col gap-4 p-8 w-72 h-full bg-white shadow-lg z-20 md:hidden">
+                <div class="flex justify-end right-4 items-center"><button id="close-btn" class="text-gray-700 w-15 text-3xl font-bold">&times;</button></div>
+                <div class="flex flex-col gap-2 sm:gap-4 justify-between">
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="/index.html">Home</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../profile/profile.html">Personal Info</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../userManagement/userManagement.html">User Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../bookingManagement/bookingManagement.html">Booking Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../roomManagement/roomManagement.html">Room Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../reportManagement/reportManagement.html">Report Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../contentManagement/contentManagement.html">Content Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../feedbackManagement/feedbackManagement.html">Feedback Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../notificationManagement/notificationManagement.html">Notification Management</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><a href="../backupRestore/backupRestore.html">Backup & Restore</a></div>
+                    <div class="transition-transform duration-300 font-semibold hover:bg-gradient-to-r from-amber-300 to-amber-500 hover:scale-105 p-2 rounded-2xl"><button id="nav-logout">Logout</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-row mt-20">
+            <div class="md:flex md:flex-col w-72 gap-2 p-7 justify-center bg-gradient-to-r from-amber-300 to-amber-500 hidden">
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../profile/profile.html">Personal Info</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../userManagement/userManagement.html">User Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../bookingManagement/bookingManagement.html">Booking Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../roomManagement/roomManagement.html">Room Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../reportManagement/reportManagement.html">Report Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../contentManagement/contentManagement.html">Content Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../feedbackManagement/feedbackManagement.html">Feedback Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../notificationManagement/notificationManagement.html">Notification Management</a></div>
+                <div class="transition-transform duration-300 font-semibold hover:bg-white hover:scale-105 p-2 rounded-2xl"><a href="../backupRestore/backupRestore.html">Backup & Restore</a></div>
+                <div class="transition-transform duration-300 rounded-2xl hover:bg-white hover:scale-105"><button id="side-logout" class="font-semibold p-2">Logout</button></div>
+            </div>
+            
+            <div class="flex justify-center items-center w-full my-28">
+                <div id="personal-info" class="max-w-lg shadow-xl items-center shadow-gray-600 rounded-3xl bg-white p-8">
+                    <h1 class="font-bold text-3xl text-center mb-8">Personal Info</h1>
+                    <div class="space-y-4 items-center flex flex-col justify-center">
+                        <!-- Username -->
+                        <div class="grid grid-cols-3">
+                            <label for="username" class="font-semibold row-span-2">Username</label>
+                            <input type="text" id="username" class="w-40 sm:w-48 outline-none border-2 border-t-transparent border-l-transparent border-r-transparent border-b-amber-500 rounded-2xl px-2" disabled autocomplete="off">
+                            <button id="user-btn" class="bg-gray-300 rounded-xl w-20 mx-12">Edit</button>
+                            <div id="user-error" class="text-red-500 text-sm"></div>
+                        </div>
+
+                        <!-- Mail id -->
+                        <div class="grid grid-cols-3">
+                            <label for="mail" class="font-semibold row-span-3">Mail id</label>
+                            <input type="email" id="mail" class="w-40 sm:w-48 focus:outline-none border-2 border-t-transparent border-l-transparent border-r-transparent border-b-amber-500 rounded-2xl px-2" disabled autocomplete="off">
+                            <button id="mail-btn" class="bg-gray-300 rounded-xl w-20 mx-12">Edit</button>
+                            <div id="mail-error" class="text-red-500 text-sm"></div>
+                            <button id="send-otp" class="bg-amber-500 hover:bg-yellow-500 text-sm p-[2px] w-20 sm:text-base sm:p-2 sm:w-24 rounded-xl mt-2 hidden col-span-2">Send OTP</button>
+                        </div>
+
+                        <!-- OTP -->
+                        <div id="otp-section" class="grid grid-cols-2 gap-2 mt-4 row-span-2 hidden">
+                            <label class="font-semibold row-span-2">Enter OTP</label>
+                            <div class="flex flex-col">
+                                <div class="flex gap-[1px]">
+                                    <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-yellow-400 rounded-lg focus:outline-none otp-input">
+                                    <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-yellow-400 rounded-lg focus:outline-none otp-input">
+                                    <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-yellow-400 rounded-lg focus:outline-none otp-input">
+                                    <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-yellow-400 rounded-lg focus:outline-none otp-input">
+                                    <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-yellow-400 rounded-lg focus:outline-none otp-input">
+                                    <input type="text" maxlength="1" class="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] text-center border-2 border-yellow-400 rounded-lg focus:outline-none otp-input">
+                                </div>
+                                <div id="otp-error" class="text-red-500 text-sm"></div> 
+                            </div>
+                            <button id="verify-otp" class="bg-green-400 hover:bg-green-500 text-sm p-[2px] w-20 sm:text-base sm:p-2 sm:w-24 rounded-xl col-span-2">Verify OTP</button>
+                        </div>
+
+                        <!-- Mobile -->
+                        <div class="grid grid-cols-3">
+                            <label for="mobile" class="font-semibold row-span-3">Mobile id</label>
+                            <input type="tel" id="mobile" class="w-40 sm:w-48 focus:outline-none border-2 border-t-transparent border-l-transparent border-r-transparent border-b-amber-500 rounded-2xl px-2" disabled autocomplete="off">
+                            <button id="mobile-btn" class="bg-gray-300 rounded-xl w-20 mx-12">Edit</button>
+                            <div id="mobile-error" class="text-red-500 text-sm"></div>
+                        </div>
+
+                        <!-- DOB -->
+                        <div class="grid grid-cols-3">
+                            <label for="dob" class="font-semibold row-span-3">DOB</label>
+                            <input type="date" id="dob" class="w-40 sm:w-48 focus:outline-none border-2 border-t-transparent border-l-transparent border-r-transparent border-b-amber-500 rounded-2xl px-2" disabled autocomplete="off">
+                            <button id="dob-btn" class="bg-gray-300 rounded-xl w-20 mx-12">Edit</button>
+                            <div id="dob-error" class="text-red-500 text-sm"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="profile.js"></script>
+    <script src="../sidebar.js"></script>
+</body>
+</html>
